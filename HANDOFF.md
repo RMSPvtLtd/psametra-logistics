@@ -1,4 +1,23 @@
-# Psametra — A-Z audit, continuation checklist, and AI handoff
+﻿# REPOSITORY MIGRATION — 2026-09-14
+
+**ACTIVE IMPLEMENTATION REPOSITORY:** `RMSPvtLtd/LogisticsWebsite`  
+**LOCAL WORKSPACE:** `E:\LogisticsWebsite`  
+**DEFAULT BRANCH:** `main`
+
+Saad explicitly authorized creation of a new RMS-owned repository for the Psametra/logistics website work. This instruction overrides older handoff text that says "Do not create a new repo."
+
+From this point forward, **all new Psametra/logistics website implementation, redesign, experiments, fixes, assets, tests, and handoff updates must be performed in `RMSPvtLtd/LogisticsWebsite` unless Saad explicitly changes the repository again.**
+
+The previous `rmspvtltdsoftware/psametra-website` repository and `E:\psametra-website` working tree are retained only as historical/reference sources. Do not continue product implementation there and do not delete them.
+
+Every AI/agent continuing this project must:
+1. Open `RMSPvtLtd/LogisticsWebsite` / `E:\LogisticsWebsite` first.
+2. Read this `HANDOFF.md` before modifying code.
+3. Treat this repository as the single source of truth for future work.
+4. Keep this handoff updated and commit/push it before handing work to another agent.
+
+---
+# Psametra â€” A-Z audit, continuation checklist, and AI handoff
 
 **Updated:** 2026-09-13, ~23:35 PKT  
 **Repository:** `rmspvtltdsoftware/psametra-website`  
@@ -10,20 +29,20 @@ This is the current source-of-truth handoff for Saad and any AI continuing the P
 
 ---
 
-## 0. MANDATORY CONTINUATION PROTOCOL — DO NOT REPEAT FINISHED WORK
+## 0. MANDATORY CONTINUATION PROTOCOL â€” DO NOT REPEAT FINISHED WORK
 
 Every AI must follow this before doing anything:
 
 1. **Read this entire HANDOFF.md first.**
 2. Confirm current branch and HEAD and compare them with the hashes recorded here.
 3. Work from the checklist below **item by item**.
-4. Items marked **DONE** or **VERIFIED** must NOT be repeated merely to “be safe.” Re-run them only when:
+4. Items marked **DONE** or **VERIFIED** must NOT be repeated merely to â€œbe safe.â€ Re-run them only when:
    - code affecting that item changed after the recorded verification, or
    - the item explicitly requires a fresh preview/production measurement.
 5. Items marked **TODO** are the remaining work. Items marked **OPTIONAL** are recommendations, not permission to implement them.
-6. Items marked **BLOCKED / NEEDS SAAD** require Saad’s decision or authorization before implementation.
+6. Items marked **BLOCKED / NEEDS SAAD** require Saadâ€™s decision or authorization before implementation.
 7. When an item is completed, change its state to **DONE** or **VERIFIED**, record the exact evidence/result and relevant commit, and remove it from the active TODO queue if appropriate.
-8. If an attempted item cannot be completed, mark it **BLOCKED** and record exactly why. Do not leave ambiguous “probably done” status.
+8. If an attempted item cannot be completed, mark it **BLOCKED** and record exactly why. Do not leave ambiguous â€œprobably doneâ€ status.
 9. After a code fix, re-run only the tests/checks affected by that code plus the standard build gate; do not blindly repeat the complete 90-viewport matrix unless the change can affect global layout.
 10. **Before stopping, handing off, or nearing a model/context/usage limit, update, commit, and push this HANDOFF.md.** Never leave the next AI dependent on chat history.
 
@@ -32,7 +51,7 @@ Every AI must follow this before doing anything:
 - Repository ownership stays with RMS.
 - Do not create a new repo.
 - Do not modify website code merely because this audit recommends something.
-- Do not deploy production or change Vercel settings without Saad’s explicit approval.
+- Do not deploy production or change Vercel settings without Saadâ€™s explicit approval.
 - Documentation/handoff maintenance and pushing the handoff are authorized for continuity.
 - Connected GitHub identity during the latest ChatGPT audit is `msaad9632` and has push access.
 
@@ -44,8 +63,8 @@ Every AI must follow this before doing anything:
 
 - Repo: `rmspvtltdsoftware/psametra-website`
 - Branch: `codex/psametra-site`
-- Premium implementation: `49a5691` — `Upgrade Psametra layouts, motion, founders, and contact`
-- Previous audit handoff: `9b828bf` — `Audit upgraded Psametra and record latest handoff`
+- Premium implementation: `49a5691` â€” `Upgrade Psametra layouts, motion, founders, and contact`
+- Previous audit handoff: `9b828bf` â€” `Audit upgraded Psametra and record latest handoff`
 - No product code was changed by the A-Z audit that produced this handoff.
 
 ### Vercel
@@ -69,22 +88,22 @@ Do not use the current production URL to judge whether the premium upgrade is vi
 
 The previous handoff said the premium implementation was approximately **8.4/10**, substantially improved from the old ~6.5/10 baseline. It recorded that:
 
-- Stages 1–3 of the approved plan are largely implemented.
-- Stage 4 — final performance/accessibility/release acceptance — remains incomplete.
+- Stages 1â€“3 of the approved plan are largely implemented.
+- Stage 4 â€” final performance/accessibility/release acceptance â€” remains incomplete.
 - Build/lint/type/tests had passed.
 - 90 settled responsive layout checks had passed with no horizontal document overflow.
 - Production is stale and still points at the older build.
 - One real release-blocking responsive-state bug was confirmed: opening the mobile menu and then resizing into desktop can leave scroll locked.
 - Fresh Lighthouse, accessibility, real-device touch, reduced-motion, interrupted-navigation stress, full orbit-cycle checks, external-link verification, and final product-owner review remain pending.
-- No product code should be changed without Saad’s authorization.
+- No product code should be changed without Saadâ€™s authorization.
 
 This A-Z audit extends that handoff rather than replacing those facts.
 
 ---
 
-## 3. A-Z REPOSITORY AUDIT SCOPE — COMPLETED
+## 3. A-Z REPOSITORY AUDIT SCOPE â€” COMPLETED
 
-**Status: VERIFIED — do not repeat this source inventory unless the repo changes materially.**
+**Status: VERIFIED â€” do not repeat this source inventory unless the repo changes materially.**
 
 The latest audit inspected the repository from root through application code and deployment state, excluding only binary image bytes from line-by-line text review.
 
@@ -166,7 +185,7 @@ No second critical code bug was found during static inspection beyond the alread
 
 ## 4. APPROVED PLAN IMPLEMENTATION STATUS
 
-### VIS-01 — shared visual system / typography / palette
+### VIS-01 â€” shared visual system / typography / palette
 **DONE / VERIFIED**
 
 - restrained monochrome palette
@@ -178,7 +197,7 @@ No second critical code bug was found during static inspection beyond the alread
 
 Do not redesign from scratch.
 
-### VIS-02 — premium homepage hero
+### VIS-02 â€” premium homepage hero
 **DONE / VERIFIED**
 
 - large asymmetric typography
@@ -187,7 +206,7 @@ Do not redesign from scratch.
 - immediately readable headline
 - ambient drift with reduced-motion support
 
-### VIS-03 — homepage pacing
+### VIS-03 â€” homepage pacing
 **DONE / VERIFIED**
 
 - dark statement
@@ -196,21 +215,21 @@ Do not redesign from scratch.
 - off-white approach section
 - dark closing CTA/footer
 
-### VIS-04 — homepage work hierarchy
+### VIS-04 â€” homepage work hierarchy
 **DONE / VERIFIED**
 
 - one lead concept + two secondary previews
 - not three equal cards
 - honest concept labels retained
 
-### VIS-05 — footer upgrade
+### VIS-05 â€” footer upgrade
 **DONE / VERIFIED**
 
 - oversized PSAMETRA wordmark
 - compact navigation
 - real RMS contact link in upgraded source
 
-### MOT-01 — Lenis desktop glide
+### MOT-01 â€” Lenis desktop glide
 **DONE / VERIFIED IN CODE + PREVIOUS LOCAL BROWSER PASS**
 
 - pinned Lenis `1.3.26`
@@ -220,7 +239,7 @@ Do not redesign from scratch.
 - only fine-pointer / hover / >=768px / no reduced motion
 - native touch retained
 
-### MOT-02 — page transition architecture
+### MOT-02 â€” page transition architecture
 **DONE / VERIFIED**
 
 - one root transition owner
@@ -231,7 +250,7 @@ Do not redesign from scratch.
 - browser history can interrupt transition
 - reduced-motion path avoids rotation/translation-heavy choreography
 
-### MOT-03 — progressive entrances / ambient pause
+### MOT-03 â€” progressive entrances / ambient pause
 **DONE / VERIFIED**
 
 - content visible without JS
@@ -240,7 +259,7 @@ Do not redesign from scratch.
 - ambient state tracks viewport
 - reduced motion cancels running entrance animation
 
-### INT-01 — Services page
+### INT-01 â€” Services page
 **DONE / VERIFIED**
 
 - editorial rows
@@ -248,7 +267,7 @@ Do not redesign from scratch.
 - code-native diagrams
 - deliverables retained
 
-### INT-02 — Work page
+### INT-02 â€” Work page
 **DONE / VERIFIED**
 
 - larger editorial visual studies
@@ -256,32 +275,32 @@ Do not redesign from scratch.
 - challenge/direction groupings
 - concept status remains honest
 
-### INT-03 — About / founders
+### INT-03 â€” About / founders
 **DONE / VERIFIED**
 
 - Muhammad Saad and Abdur Rafay Khan represented equally
 - portfolio links present
 - no invented titles/metrics/outcomes
 
-### INT-04 — Contact
+### INT-04 â€” Contact
 **DONE / VERIFIED IN SOURCE + PARTIAL BROWSER QA**
 
 - real default email `rmspvtltd.software@gmail.com`
 - explicit mailto draft
 - local brief download
 - whitespace validation
-- no backend/storage/fake “sent” state
+- no backend/storage/fake â€œsentâ€ state
 
 ---
 
-## 5. EXISTING VERIFICATION — DO NOT BLINDLY REPEAT
+## 5. EXISTING VERIFICATION â€” DO NOT BLINDLY REPEAT
 
 **VERIFIED at premium-upgrade checkpoint unless relevant code changes:**
 
 - `npm run lint`: PASS
 - `npm run typecheck`: PASS
-- `npm test`: PASS — 9 tests / 0 failures
-- `npm run build`: PASS — five routes + 404 statically exported
+- `npm test`: PASS â€” 9 tests / 0 failures
+- `npm run build`: PASS â€” five routes + 404 statically exported
 - `npm run format:check`: PASS at recorded checkpoint
 - `git diff --check`: PASS at recorded checkpoint
 - 90 settled route/width/theme layout checks: PASS
@@ -316,8 +335,8 @@ Run the full matrix again only if global CSS/layout/navigation structure changes
 
 ## 6. CONFIRMED BUG QUEUE
 
-### BUG-01 — mobile menu resize can retain scroll lock
-**TODO — P0 BEFORE RELEASE / NEEDS SAAD AUTHORIZATION TO FIX**
+### BUG-01 â€” mobile menu resize can retain scroll lock
+**TODO â€” P0 BEFORE RELEASE / NEEDS SAAD AUTHORIZATION TO FIX**
 
 Reproduction:
 
@@ -343,7 +362,7 @@ Recommended bounded fix:
 
 Do not implement until Saad authorizes website code changes.
 
-### BUG-02 — none confirmed
+### BUG-02 â€” none confirmed
 **VERIFIED:** static A-Z inspection found no second release-critical bug.
 
 Do not invent additional bugs without reproduction/evidence.
@@ -354,8 +373,8 @@ Do not invent additional bugs without reproduction/evidence.
 
 These did not all appear in the earlier handoff.
 
-### QA-01 — browser-level regression coverage
-**TODO — P1 RECOMMENDATION / NEEDS SAAD FOR IMPLEMENTATION**
+### QA-01 â€” browser-level regression coverage
+**TODO â€” P1 RECOMMENDATION / NEEDS SAAD FOR IMPLEMENTATION**
 
 Current tests are valuable but pure/unit-oriented. They cover transition ordering, URL policy, theme bootstrap, and contact formatting. They do not mount the actual dialog/viewport behavior, which is exactly why BUG-01 escaped.
 
@@ -365,8 +384,8 @@ Recommended:
 - keep it small: mobile menu resize lock, transition completion, native back/forward, contact validation, reduced-motion mode
 - do not create a giant brittle screenshot suite
 
-### CI-01 — GitHub CI
-**TODO — P1 RECOMMENDATION / NEEDS SAAD FOR IMPLEMENTATION**
+### CI-01 â€” GitHub CI
+**TODO â€” P1 RECOMMENDATION / NEEDS SAAD FOR IMPLEMENTATION**
 
 The latest GitHub commit has no reported CI/status checks. Local checks passed, but there is no durable automated gate visible on GitHub.
 
@@ -380,8 +399,8 @@ Recommended lightweight workflow on push/PR:
 
 If browser tests are later added, run the small critical suite after the build gate.
 
-### SEO-01 — canonical / metadata base / share completeness
-**TODO — P1 RECOMMENDATION**
+### SEO-01 â€” canonical / metadata base / share completeness
+**TODO â€” P1 RECOMMENDATION**
 
 Current root metadata has title, description, and basic Open Graph fields, and pages have titles/descriptions. The repository does not currently provide a complete public-share/SEO layer.
 
@@ -395,8 +414,8 @@ Consider after the final domain is known:
 
 Do not hard-code a temporary Vercel URL as the permanent canonical if Psametra will use a custom domain.
 
-### SEO-02 — robots / sitemap / structured organization data
-**TODO — P1 RECOMMENDATION**
+### SEO-02 â€” robots / sitemap / structured organization data
+**TODO â€” P1 RECOMMENDATION**
 
 No `robots.ts`/`robots.txt` or `sitemap.ts`/`sitemap.xml` is present in the current tree. Consider:
 
@@ -406,10 +425,10 @@ No `robots.ts`/`robots.txt` or `sitemap.ts`/`sitemap.xml` is present in the curr
 
 Do not invent address, awards, clients, ratings, founding dates, or other schema facts.
 
-### BRAND-01 — generated app icon is not square
-**TODO — P2 RECOMMENDATION**
+### BRAND-01 â€” generated app icon is not square
+**TODO â€” P2 RECOMMENDATION**
 
-`scripts/optimize-brand.mjs` resizes the supplied dark logo to width 192 while preserving its original aspect ratio. The resulting `src/app/icon.png` is therefore approximately 192×128 rather than a conventional square app/favicon asset.
+`scripts/optimize-brand.mjs` resizes the supplied dark logo to width 192 while preserving its original aspect ratio. The resulting `src/app/icon.png` is therefore approximately 192Ã—128 rather than a conventional square app/favicon asset.
 
 Recommended:
 
@@ -417,10 +436,10 @@ Recommended:
 - optionally add an Apple touch icon
 - visually verify it at very small sizes
 
-Do not crop/redraw the logo without Saad’s approval.
+Do not crop/redraw the logo without Saadâ€™s approval.
 
-### PERF-01 — brand images are always `priority`
-**TODO — P2 PERFORMANCE POLISH**
+### PERF-01 â€” brand images are always `priority`
+**TODO â€” P2 PERFORMANCE POLISH**
 
 `Brand()` renders both light/dark WebPs with `priority`, and the component is used in both header and footer. The assets are already small (~16.9KB dark WebP and ~26.7KB light WebP), so this is not a serious problem, but the footer does not need LCP priority and both theme variants do not necessarily need eager treatment.
 
@@ -431,7 +450,7 @@ Recommended only if fresh Lighthouse/trace shows value:
 - footer should be normal/lazy
 - avoid changing the visual/logo assets just for micro-optimization
 
-### PERF-02 — keep current dependency discipline
+### PERF-02 â€” keep current dependency discipline
 **VERIFIED / DO NOT CHANGE WITHOUT EVIDENCE**
 
 - no Framer Motion
@@ -440,9 +459,9 @@ Recommended only if fresh Lighthouse/trace shows value:
 - Lenis is the only motion dependency
 - static export stays appropriate
 
-Do not add 3D/heavy animation libraries merely to chase “premium.”
+Do not add 3D/heavy animation libraries merely to chase â€œpremium.â€
 
-### CODE-01 — `SiteLink` client subscription scope
+### CODE-01 â€” `SiteLink` client subscription scope
 **OPTIONAL P3 CLEANUP**
 
 `SiteLink` calls `usePathname()` for every use, including many ordinary content/CTA links where active-route semantics are unnecessary. This is not a current bug and may not matter measurably.
@@ -454,65 +473,65 @@ Possible future cleanup only if profiling/build analysis justifies it:
 
 Do not refactor this before release acceptance simply for theoretical purity.
 
-### CODE-02 — minor repo housekeeping
+### CODE-02 â€” minor repo housekeeping
 **OPTIONAL P3**
 
 `.gitignore` contains `.vercel` twice. Harmless; clean only when touching nearby configuration.
 
-### CONTENT-01 — generic concepts are now the largest credibility limitation
-**P1 PRODUCT/SALES RECOMMENDATION — NEEDS SAAD DECISION**
+### CONTENT-01 â€” generic concepts are now the largest credibility limitation
+**P1 PRODUCT/SALES RECOMMENDATION â€” NEEDS SAAD DECISION**
 
 The current Work page is intentionally honest, but every item is a generic concept study. For a software company trying to win work, verified real builds will create more trust than another layer of visual polish.
 
 Potential direction:
 
 - retain concept studies if desired
-- add a distinct “Selected builds” / “Founder-built products” section using real, verifiable projects
-- candidates may include real founder/RMS work such as QuickSign, logistics/business software, AI extraction tooling, or other actually built products — **only after verifying ownership, public links, screenshots, status, and what claims may be made**
+- add a distinct â€œSelected buildsâ€ / â€œFounder-built productsâ€ section using real, verifiable projects
+- candidates may include real founder/RMS work such as QuickSign, logistics/business software, AI extraction tooling, or other actually built products â€” **only after verifying ownership, public links, screenshots, status, and what claims may be made**
 - describe the actual problem, what was built, technologies, and current status
 - never invent client outcomes, revenue, adoption, launch status, or testimonials
 
 This is probably the highest-impact path from ~8.4 visual quality toward a company site that also sells effectively.
 
-### CONTENT-02 — founder proof links
+### CONTENT-02 â€” founder proof links
 **OPTIONAL P2 / NEEDS SAAD CONTENT APPROVAL**
 
 Current founder profiles link to portfolios. If useful and approved, add verified professional proof such as GitHub/LinkedIn links. Keep both founders balanced. Do not assign CEO/CTO or other executive titles unless Saad explicitly approves them for Psametra.
 
-### PROOF-01 — verified external project proof inventory (2026-09-14)
-**VERIFIED / AUDIT EVIDENCE ONLY — NO SITE CHANGE**
+### PROOF-01 â€” verified external project proof inventory (2026-09-14)
+**VERIFIED / AUDIT EVIDENCE ONLY â€” NO SITE CHANGE**
 
 Founder portfolios and the private RMS logistics repository materially strengthen the evidence available for future Work-page copy, but personal/freelance work must not be silently relabeled as Psametra company client work.
 
-- Abdur Rafay Khan’s public portfolio lists **APPNA New Jersey** as 2026 freelance Full-Stack Developer work, with a live public link at `https://www.appnanj.org/` and a Next.js/React/TypeScript/Tailwind/Vercel stack.
-- The same portfolio describes APPNA New Jersey as a nonprofit website covering programs, leadership/events, membership, and donations. The live APPNA NJ site was independently fetched during this audit and currently publishes `10,000+ patients served` and `200+ students mentored` (plus other organization metrics). If these are ever referenced, attribute them as APPNA-reported organizational impact — **not as outcomes caused by Psametra/the website unless that causality is separately evidenced**.
-- Muhammad Saad’s public portfolio provides additional founder-built proof candidates: QuickSign, `extract`, Ledger, and DineSync. These are evidence of founder capability, not automatically Psametra client engagements.
+- Abdur Rafay Khanâ€™s public portfolio lists **APPNA New Jersey** as 2026 freelance Full-Stack Developer work, with a live public link at `https://www.appnanj.org/` and a Next.js/React/TypeScript/Tailwind/Vercel stack.
+- The same portfolio describes APPNA New Jersey as a nonprofit website covering programs, leadership/events, membership, and donations. The live APPNA NJ site was independently fetched during this audit and currently publishes `10,000+ patients served` and `200+ students mentored` (plus other organization metrics). If these are ever referenced, attribute them as APPNA-reported organizational impact â€” **not as outcomes caused by Psametra/the website unless that causality is separately evidenced**.
+- Muhammad Saadâ€™s public portfolio provides additional founder-built proof candidates: QuickSign, `extract`, Ledger, and DineSync. These are evidence of founder capability, not automatically Psametra client engagements.
 - Existing Psametra founder portfolio links are already present; do not repeat work to add them.
 
-### CASE-01 — APPNA New Jersey case-study candidate
+### CASE-01 â€” APPNA New Jersey case-study candidate
 **VERIFIED REAL PUBLIC BUILD / NEEDS ATTRIBUTION + COPY APPROVAL BEFORE USE**
 
 APPNA New Jersey is the strongest immediately public client-style proof found in the audit. It can support a real-work case study once ownership/agency attribution is phrased truthfully. Prefer verifiable scope, screenshots, stack, and public URL. Do not invent outcomes, engagement metrics, or imply Psametra contracted the work unless Saad confirms that relationship.
 
-### CASE-02 — Raaziq logistics platform case-study candidate
+### CASE-02 â€” Raaziq logistics platform case-study candidate
 **VERIFIED REAL PRODUCT EVIDENCE / NEEDS PUBLICATION + CLAIM APPROVAL BEFORE USE**
 
 Evidence reviewed from `E:\LogisticSoftware\sea-and-air` and the live branded shell at `https://frontend-beryl-three.vercel.app/` confirms Raaziq is a substantial logistics build rather than a concept mockup. The air vertical documents quotation-to-shipment workflows, ops/worker/customer/public-tracking surfaces, a 17-stage air-freight lifecycle, FastAPI + React architecture, and a documented integration-test suite. The sea vertical provides public container lookup through a provider abstraction and shares the customer-facing tracking UI.
 
 Claim boundaries are important: current documentation explicitly does **not** support claims of live carrier integrations for air, ETA prediction, GPS/IoT, AI pricing/prediction, payments/ERP, or other future capabilities. The sea SAPT connector has an explicit authorization/commercial-use caveat; never market it as an official SAPT partnership/integration unless separately authorized. Air documentation is internally stale/inconsistent around ops authentication, so avoid detailed auth claims until runtime/source behavior is specifically re-verified. Public shell/branding was verified; authenticated live workflow verification was not completed in this audit.
 
-### CONTENT-03 — recommended real-work information architecture
-**P1 PRODUCT/SALES RECOMMENDATION — NEEDS SAAD DECISION**
+### CONTENT-03 â€” recommended real-work information architecture
+**P1 PRODUCT/SALES RECOMMENDATION â€” NEEDS SAAD DECISION**
 
 For credibility, the strongest evidence-backed direction is a distinct **Selected Work / Real Builds** area led by APPNA New Jersey and Raaziq, plus a separately labeled **Founder-built products** area if QuickSign, `extract`, Ledger, or DineSync are used. This separation prevents personal/freelance work from being presented as company client history while still proving the founders can ship real systems.
 
-### TESTIMONIAL-01 — temporary testimonial evidence boundary
+### TESTIMONIAL-01 â€” temporary testimonial evidence boundary
 **OWNER-REPORTED POSITIVE FEEDBACK / STAGING PLACEHOLDER ONLY / NEEDS APPROVED QUOTE FOR FACTUAL PUBLICATION**
 
 Saad reports that both the APPNA New Jersey client and the Raaziq client were happy with the work and intends to use temporary testimonials. No exact approved client quotation, speaker name/title, or publication permission was verified during this audit. A testimonial component may use clearly marked staging/placeholder copy during development, but fabricated attributed quotes must not ship as factual customer statements. Before production, use an exact approved quote or owner/client-approved paraphrase with truthful attribution.
 
-### AUDIT-01 — one-pass local audit confirmation (2026-09-14)
-**VERIFIED / AUDIT ONLY — NO PRODUCT CODE CHANGE**
+### AUDIT-01 â€” one-pass local audit confirmation (2026-09-14)
+**VERIFIED / AUDIT ONLY â€” NO PRODUCT CODE CHANGE**
 
 A single local audit script inspected Git state, package/config files, the filtered source tree, tests, TODO/FIXME/error patterns, existing handoff items, relevant navigation/scroll/SEO/performance patterns, and attempted the standard quality gates. At the start of the pass, branch `codex/psametra-site` and `origin/codex/psametra-site` both pointed to `1051fed7e43645ece769fce616b14e8ef0f71188`; the only working-tree change was this handoff update.
 
@@ -524,14 +543,14 @@ A single local audit script inspected Git state, package/config files, the filte
 - `lint`, `typecheck`, and `build` could not start in this checkout because the local `eslint`/`next` executables are unavailable (`node_modules` is not installed). Treat this as a local environment precondition, **not a code-gate failure**. Earlier successful lint/typecheck/build evidence in this handoff remains the latest completed gate evidence until dependencies are installed and the gate is rerun.
 - The temporary audit report is not a project artifact and must not be committed.
 
-### BIZ-01 — custom company domain
+### BIZ-01 â€” custom company domain
 **P1 BEFORE SERIOUS PUBLIC LAUNCH / NEEDS SAAD**
 
 Current production is on a `vercel.app` hostname. A real Psametra domain would materially improve trust, email/brand consistency, canonical SEO, and sharing.
 
-Do not buy/configure a domain without Saad’s approval.
+Do not buy/configure a domain without Saadâ€™s approval.
 
-### ANALYTICS-01 — lightweight conversion measurement
+### ANALYTICS-01 â€” lightweight conversion measurement
 **OPTIONAL P2 AFTER LAUNCH / NEEDS SAAD**
 
 README confirms there is currently no analytics. Once the upgraded site is live, consider lightweight measurement for:
@@ -546,26 +565,26 @@ Use a privacy-conscious setup and document it. Do not add analytics before Saad 
 
 ---
 
-## 8. RELEASE ACCEPTANCE TODO QUEUE — EXECUTE IN THIS ORDER
+## 8. RELEASE ACCEPTANCE TODO QUEUE â€” EXECUTE IN THIS ORDER
 
 This is the list the next AI should work through rather than starting another general audit.
 
-### REL-01 — BUG-01 fix
+### REL-01 â€” BUG-01 fix
 **TODO / BLOCKED ON SAAD AUTHORIZATION**
 
 Fix mobile-menu breakpoint scroll lock and add regression coverage.
 
-### REL-02 — standard code gate after BUG-01
+### REL-02 â€” standard code gate after BUG-01
 **TODO AFTER REL-01**
 
 Run lint, typecheck, tests, build. Re-run breakpoint-focused browser checks, not automatically the entire old matrix.
 
-### REL-03 — upgraded Vercel preview
+### REL-03 â€” upgraded Vercel preview
 **TODO / NEEDS SAAD AUTHORIZATION IF DEPLOYMENT ACTION REQUIRED**
 
 Create or identify a preview containing the upgraded HEAD. Verify it is built from the correct new SHA. Do not promote production yet.
 
-### REL-04 — fresh Lighthouse / Core Web Vitals lab checks
+### REL-04 â€” fresh Lighthouse / Core Web Vitals lab checks
 **TODO ON UPGRADED PREVIEW**
 
 Targets retained from plan:
@@ -577,7 +596,7 @@ Targets retained from plan:
 
 Record actual scores and test conditions. Do not reuse old production scores.
 
-### REL-05 — upgraded accessibility acceptance
+### REL-05 â€” upgraded accessibility acceptance
 **TODO ON UPGRADED PREVIEW**
 
 - automated accessibility scan
@@ -587,7 +606,7 @@ Record actual scores and test conditions. Do not reuse old production scores.
 - dialog behavior
 - both themes
 
-### REL-06 — navigation stress
+### REL-06 â€” navigation stress
 **TODO**
 
 - rapid repeated internal clicks
@@ -597,7 +616,7 @@ Record actual scores and test conditions. Do not reuse old production scores.
 - throttled destination readiness
 - transition + mobile-menu lock overlap
 
-### REL-07 — motion / device acceptance
+### REL-07 â€” motion / device acceptance
 **TODO**
 
 - desktop wheel trace
@@ -607,7 +626,7 @@ Record actual scores and test conditions. Do not reuse old production scores.
 - full ambient orbit cycle without overflow
 - do not claim stable 60fps until measured
 
-### REL-08 — contact end-to-end acceptance
+### REL-08 â€” contact end-to-end acceptance
 **TODO**
 
 - inspect downloaded brief bytes/content/filename
@@ -615,19 +634,19 @@ Record actual scores and test conditions. Do not reuse old production scores.
 - no fake sent state
 - real RMS address everywhere
 
-### REL-09 — external links
+### REL-09 â€” external links
 **TODO**
 
 - Saad portfolio link
 - Rafay portfolio link
 - any future real case-study links
 
-### REL-10 — product-owner visual review
+### REL-10 â€” product-owner visual review
 **TODO / NEEDS SAAD**
 
 Saad reviews the actual upgraded preview on desktop/mobile and both themes. Record concrete requested refinements instead of launching another generic redesign audit.
 
-### REL-11 — production promotion
+### REL-11 â€” production promotion
 **TODO / BLOCKED ON SAAD EXPLICIT APPROVAL**
 
 Only after the release queue above is acceptable. Confirm RMS Vercel scope and deployed commit SHA after promotion.
@@ -653,7 +672,7 @@ Do not require RDC merely to reread source files already audited in GitHub.
 
 ---
 
-## 10. PROVISIONAL SCORES — UPGRADED IMPLEMENTATION
+## 10. PROVISIONAL SCORES â€” UPGRADED IMPLEMENTATION
 
 These are subjective design/readiness scores for the upgraded implementation reviewed locally/source-side, NOT scores for the stale public production build.
 
@@ -697,10 +716,10 @@ Do not raise these scores merely because code was changed. Raise them only after
 ## 12. FINAL STATUS AT THIS HANDOFF
 
 - A-Z committed-repo audit: **VERIFIED COMPLETE**
-- Latest one-pass local audit transport check (2026-09-14): **VERIFIED — HANDOFF-only findings; 9/9 unit tests passed; lint/typecheck/build blocked locally by missing installed dependencies**
+- Latest one-pass local audit transport check (2026-09-14): **VERIFIED â€” HANDOFF-only findings; 9/9 unit tests passed; lint/typecheck/build blocked locally by missing installed dependencies**
 - Original premium plan comparison: **VERIFIED COMPLETE**
 - Premium implementation in GitHub: **DONE at `49a5691`**
-- Public production upgraded: **NO — still old `698002c` release**
+- Public production upgraded: **NO â€” still old `698002c` release**
 - Product code changed by latest A-Z audit: **NONE**
 - Vercel settings/deployment changed by latest A-Z audit: **NONE**
 - Confirmed release bug: **BUG-01 mobile menu resize scroll lock**
@@ -712,3 +731,4 @@ Do not raise these scores merely because code was changed. Raise them only after
 - Next coding action: **REL-01 only after Saad approval**
 
 **Next AI: do not start another A-Z audit. Start at the first applicable TODO in Section 8, respecting authorization, and update this checklist as each item is actually completed.**
+
