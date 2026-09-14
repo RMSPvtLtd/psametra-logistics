@@ -1,4 +1,4 @@
-﻿# PSAMETRA LOGISTICS - SOL HANDOFF
+﻿# PSAMETRA LOGISTICS - BUILD BRIEF
 
 ## CRITICAL PROJECT BOUNDARY
 
@@ -282,8 +282,7 @@ Not allowed without new evidence/approval:
 3. Treat `E:\psametra-website` and its GitHub repository as read-only reference sources.
 4. Treat `E:\LogisticSoftware` as a read-only capability/business-flow reference unless Saad explicitly authorizes changes there.
 5. Keep `reference/` as source/reference material; do not silently overwrite originals.
-6. Before major implementation, read `RESEARCH_AUDIT.md` once. Do not spend premium context repeating the same competitor/site audit unless something material changed.
-7. Keep this handoff current at meaningful milestones.
+6. Do not spend premium context repeating the same competitor/site audit unless something material changed.`r`n7. Keep `BUILD_BRIEF.md` current at meaningful milestones.
 8. Do not deploy to production or change Vercel settings without explicit approval.
 
 ## IMPLEMENTATION ORDER FOR SOL
@@ -336,7 +335,7 @@ Before final handoff/deployment candidate:
 - reduced motion works
 - build/lint/type/tests pass
 - Lighthouse/performance results recorded after the implementation exists
-- Sol updates this handoff with exact completed items and remaining blockers
+- Sol updates `BUILD_BRIEF.md` with exact completed items and remaining blockers
 
 ## FINAL INSTRUCTION TO SOL
 
@@ -345,3 +344,4 @@ Do not redesign Psametra's corporate site. Do not port its source into this proj
 Build **psametra-logistics** from scratch as a premium, cinematic, operationally credible logistics-company demo that demonstrates what Psametra can deliver to a real logistics client.
 
 **NEW BUILD - DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
+

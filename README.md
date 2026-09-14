@@ -1,18 +1,14 @@
 ﻿# psametra-logistics
 
-**NEW BUILD - DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
+**NEW BUILD — DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
 
-Standalone premium logistics-company demo/showcase built by Psametra for sales demonstrations to prospective logistics clients.
+Standalone premium logistics-company demo built by Psametra for prospective logistics/freight/3PL clients.
 
-This repository is intentionally a clean-slate project. The previous Psametra corporate website is reference-only and remains untouched.
+- `BUILD_BRIEF.md` — the single source of truth for research, scope, design direction, implementation order, and guardrails.
+- `reference/brand/` — verified Psametra brand assets for reference/reuse.
+- `reference/hero/` — approved truck hero source, scroll-optimized derivative, and poster.
 
-Start here:
-
-1. `SOL_HANDOFF.md` - authoritative build brief
-2. `RESEARCH_AUDIT.md` - completed deep research and rationale
-3. `reference/` - approved reference-only brand, hero and research assets
-
-Current state: research complete, implementation not started.
+The existing Psametra corporate website is reference-only and remains untouched.
 
 Repository: `RMSPvtLtd/psametra-logistics`  
 Local workspace: `E:\psametra-logistics`
