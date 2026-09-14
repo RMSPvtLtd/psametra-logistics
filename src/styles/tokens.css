@@ -1,0 +1,47 @@
+:root {
+  --space-section: 105px;
+  --space-section-mobile: 68px;
+  --radius-panel: 5px;
+  --shadow-dialog: 0 20px 80px #0003;
+  --surface: #f7f7f5;
+  --surface-alt: #f0f1f3;
+  --ink: #111111;
+  --muted: #676b73;
+  --line: #dedfe3;
+  --grid: #e8e9ed66;
+  --accent: #124bea;
+  --accent-hover: #0b3ac1;
+  --control-accent: #174bd6;
+  --blue-shadow: #164cef20;
+  --hero-logo-glow-near: #1d62ff1f;
+  --hero-logo-glow-far: #1d62ff0d;
+  --header: #f7f7f5ed;
+  --transition-mark: #050505;
+  --radius-button: 5px;
+  --duration-fast: 180ms;
+  --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --surface: #050505;
+  --surface-alt: #111111;
+  --ink: #f7f7f5;
+  --muted: #969ca8;
+  --line: #2b2e36;
+  --grid: #2b2e3655;
+  --accent: #306cfe;
+  --accent-hover: #285ae8;
+  --control-accent: #174bd6;
+  --blue-shadow: #124bea30;
+  --hero-logo-glow-near: #2f7dff2b;
+  --hero-logo-glow-far: #2f7dff14;
+  --header: #050505f2;
+  --transition-mark: #ffffff;
+  color-scheme: dark;
+}
+[data-theme="dark"] .logo-on-light {
+  display: none;
+}
+[data-theme="dark"] .logo-on-dark {
+  display: block;
+}
