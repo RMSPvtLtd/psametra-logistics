@@ -17,10 +17,68 @@ The legacy site may be inspected only for verified Psametra information, brandin
 ## STATUS
 
 Research/audit: **COMPLETE**.
-Implementation: **NOT STARTED**.
+Implementation: **IN PROGRESS** on `codex/logistics-experience`.
 Production deployment: **DO NOT DEPLOY WITHOUT SAAD'S EXPLICIT APPROVAL**.
 
-The accidental copy of legacy Psametra application code that initially existed in this repository has been removed. Sol must design and implement the new site from a clean slate.
+The application is being built from a clean slate. Both reference repositories remain read-only.
+
+### Implementation architecture and work plan
+
+- Next.js App Router, TypeScript, one tokenized CSS system; static/server pages with focused client components for hero, tracking, quote and portal interactions.
+- Charcoal/off-white editorial grids, restrained cobalt, locally hosted open-source Inter. Approved poster paints first; the silent GOP-12 video scrubs across 220vh on capable desktops. Mobile, data-saving and reduced-motion visitors get the poster.
+- `src/data/demo.ts` owns typed customers, shipments, milestones, references, documents, quotes and service content. Public tracking reveals only customer-safe fields/documents. All routes reuse the same records.
+- `src/components/` contains shell and shipment presentation; `src/features/` owns interactions; `src/app/` owns the eight requested routes and metadata. No database, carrier API, authentication or external submission is implied by the demo.
+- [ ] Foundation: shell, tokens, shared demo data and invariant/reference tests.
+- [ ] Sales experience: film hero, homepage narrative, services, tracking and validated quote flow.
+- [ ] Software proof: attention-first platform, customer portal, quotes, documents and invoice detail.
+- [ ] Verification: every route at desktop/tablet/mobile sizes, interaction/error states, keyboard/reduced motion, lint/typecheck/tests/build and measured Lighthouse reports.
+- Keep source assets intact. Generated QA files live in ignored `test-results/`. Review every implementation diff before commits/pushes; do not deploy.
+
+### CONTINUATION CHECKPOINT — read before resuming
+
+Saved on 2026-09-14 at Saad's explicit request. This is the plan and handoff; do not create competing handoff files. The full product scope and acceptance criteria are below. Continue the complete build autonomously; this checkpoint is not a declaration of completion.
+
+**Git and environment**
+
+- Workspace: `E:\psametra-logistics`; remote: `https://github.com/RMSPvtLtd/psametra-logistics.git`.
+- Implementation branch: `codex/logistics-experience`; base `main` was clean at `932e435`.
+- Node `24.15.0`, npm `11.12.1`; installed Next `16.3.5`, React `19.3.0`, TypeScript, ESLint, Playwright, Lighthouse, tsx and Inter. `package-lock.json` exists.
+- Run `npm run dev` for preview. No dev server has been started at this checkpoint. Chrome exists at `C:\Program Files\Google\Chrome\Application\chrome.exe` for Playwright/Lighthouse.
+- Git writes and network/npm install required sandbox escalation in this session; normal workspace file edits work. Do not mistake that for a product blocker.
+
+**Written so far (implementation is incomplete and not yet integrated/verified)**
+
+- Application package/config, layout, icon, robots/noindex policy, 404, header/mobile navigation, footer/conversion.
+- Hero client uses approved GOP-12 silent film, poster-first rendering, native rAF seeks and desktop capability gating. Needs visual/scroll/error fallback verification.
+- Shared route map, shipment detail, milestone rail, status badges; tracking search with blank/not-found/sample-reference paths; interactive six-stage journey.
+- `src/data/demo.ts`: typed customers, four sample shipments, documents, quotes, services, reference resolution, UTC date and currency formatting. Featured `PSX-260914-001` is Air / Lahore → Dubai / In transit / Airborne. Keep this identical across routes.
+- `src/features/quote/`: four-step inquiry, validation, review, local-only success and summary download. `QuoteForm.tsx` default export. Tests in `tests/demo.test.ts` and `tests/quote.test.ts`. Worker reported 8 tests green; primary agent has not yet independently rerun them at this checkpoint.
+- `src/features/portal/Portal.tsx` named `Portal` export; portal CSS; `src/components/document-list.tsx` named `DocumentList`. Shipment/quote/document/activity tabs, active/completed filters, local sample quote acceptance, native document dialogs and sample text downloads. These have not yet had browser verification.
+- `public/media/`: hero film/poster, air/sea photography, generated Natural Earth map SVG. `public/brand/`: approved logos and Inter OFL license.
+
+**NEXT ACTIONS, in order**
+
+1. Read actual current files/git status; other bounded workers may have finished after this saved snapshot. Preserve their work and user-added assets.
+2. Finish `src/styles/globals.css` (currently MISSING): tokenized shell, hero, responsive editorial sections, tracking/map/timeline, journey and quote styles. Portal styles already live in its feature folder.
+3. Implement the eight route pages (currently MISSING): `/`, `/services`, `/track`, `/quote`, `/platform`, `/portal-demo`, `/about`, `/contact`. Wire existing features. Homepage sequence is locked below. Build attention-first platform showcase from the shared shipments; do not invent metrics. Add site social preview and route metadata without claiming a deployment hostname.
+4. Verify module contracts, import paths and all route links. Remove any hardcoded shipment reference in feature links in favor of the central data export where practical.
+5. Start preview; visually inspect every route at desktop/tablet/mobile. Exercise tracking success/not-found/blank, quote validation/back/review/success/download, portal filters/empty states/quote acceptance/documents, navigation/keyboard focus, reduced-motion and video failure/mobile fallback. Check horizontal overflow and browser errors. Inspect the new 1080p hero source before deciding whether to use it; original dense-keyframe derivative remains current runtime choice.
+6. Independently review all diffs. Run `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`; fix real failures. Add a runnable browser smoke script at `scripts/browser-check.mjs` (package script exists, file currently MISSING).
+7. Measure Lighthouse desktop/mobile against the production build, record exact scores/limitations here, and review real screenshots. No performance/accessibility claims before measurement.
+8. Update this checkpoint to final verified state, commit meaningful stable work on the feature branch and push only after review. No production deployment or Vercel change without Saad's explicit approval.
+
+**Asset and factual evidence**
+
+- User-pasted root `Start_frame_the_new_front_fac (2).mp4` SHA-256 matches `reference/hero/psametra-logistics-hero-source.mp4` exactly (`4032556698288DEE194EDA62F73DC08F20682959B8B9E8BBE7914E0719CC53F3`). Duplicate root upload is ignored, source preserved.
+- A new `reference/hero/psametra-logistics-hero-1080p.mp4` appeared during implementation; not yet inspected. Preserve it.
+- Air photo: nrd, https://unsplash.com/photos/white-plane-releasing-cargo-Woev36hRtIQ (Unsplash License). Sea photo: Pankaj Mishra, https://www.pexels.com/photo/cargo-containers-in-a-ship-11825325/ (Pexels free-use license). These depict freight generically, not company assets/partners.
+- Map: Natural Earth public-domain 1:110m land, https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson. `scripts/prepare-map.mjs` generated the committed runtime SVG from the ignored downloaded JSON in `test-results/`. Map labels explicitly say illustrative, not real-time GPS.
+- Verified actual sales contact: `rmspvtltd.software@gmail.com`; existing corporate site `https://psametra-website.vercel.app/`. Reference-only source: `E:\psametra-website\src\content\site.ts`. No invented phone/address.
+- Read-only RMS inspection confirmed public-safe tracking excludes pricing, internal notes/risk reasons and account data (`air/backend/schemas/tracking.py`). Keep invoices/prices in the clearly fictional portal. No reference repository was modified.
+
+**Known limitations at this checkpoint**
+
+The application is not yet runnable because route pages and global stylesheet are still missing. No lint/typecheck/production build/browser/Lighthouse pass has been established by the primary agent. No production deployment, remote push or carrier integration has occurred. This is the expected middle of the implementation, not a finished demo.
 
 ## PRODUCT DEFINITION
 
