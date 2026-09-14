@@ -1,9 +1,17 @@
-<!-- BEGIN:nextjs-agent-rules -->
+﻿# Agent instructions - psametra-logistics
 
-# This is NOT the Next.js you know
+**NEW BUILD - DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+This repository is a new standalone logistics-company demo website built from scratch.
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+Before coding:
 
-<!-- END:nextjs-agent-rules -->
+1. Read `SOL_HANDOFF.md`.
+2. Read `RESEARCH_AUDIT.md` once; do not repeat the completed research from zero.
+3. Work only in `RMSPvtLtd/psametra-logistics` / `E:\psametra-logistics`.
+4. Treat `E:\psametra-website` and the legacy Psametra GitHub repo as read-only reference sources.
+5. Treat `E:\LogisticSoftware` as a read-only logistics-domain/product reference unless Saad explicitly authorizes changes.
+6. Do not restore or reuse the deleted legacy Psametra source architecture as this project's base.
+7. Keep claims truthful; demo/sample operational data must not be presented as real Psametra logistics operations.
+8. Do not deploy or change Vercel settings without explicit approval.
+9. Update `SOL_HANDOFF.md` before handing work to another agent.
