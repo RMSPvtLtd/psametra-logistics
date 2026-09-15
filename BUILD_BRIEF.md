@@ -19,10 +19,11 @@ The legacy site may be inspected only for verified Psametra information, brandin
 ## STATUS
 
 Research/audit: **COMPLETE**.
-Implementation: **BUILT AND VERIFIED; DEPLOYMENT IN PROGRESS** on `codex/logistics-experience`.
+Implementation: **BUILT, VERIFIED AND DEPLOYED** on `codex/logistics-experience`.
+Live URL: **https://psametra-logistics.vercel.app/** (RMS Vercel production; live regression checks passed).
 Production deployment: **AUTHORIZED by Saad on 2026-09-15, only for the new psametra-logistics project in the RMS Vercel team, after final QA.**
 
-The application is being built from a clean slate. Both reference repositories remain read-only.
+The application was built from a clean slate. Both reference repositories remain read-only.
 
 ### Implementation architecture and work plan
 
@@ -34,7 +35,7 @@ The application is being built from a clean slate. Both reference repositories r
 - [x] Sales experience: film hero, homepage narrative, services, tracking and validated quote flow.
 - [x] Software proof: attention-first platform, customer portal, quotes, documents and invoice detail.
 - [x] Verification: every route at desktop/tablet/mobile sizes, interaction/error states, keyboard/reduced motion, lint/typecheck/tests/build and measured Lighthouse reports.
-- Keep source assets intact. Generated QA files live in ignored `test-results/`. Review every implementation diff before commits/pushes; do not deploy.
+- Keep source assets intact. Generated QA files live in ignored `test-results/`. Review every implementation diff before commits/pushes; deployment is authorized only for the new RMS logistics project described below.
 
 ### CONTINUATION CHECKPOINT — read before resuming
 
@@ -53,12 +54,16 @@ Updated 2026-09-15. This is the single plan/handoff. Continue the entire build, 
 
 **Git and deployment checkpoint**
 
-- Branch: codex/logistics-experience. Base main: 932e435. Initial handoff docs: 4c26de4. Reviewed implementation is ready to commit/push; check git log/status for latest commit before resuming.
+- Branch: codex/logistics-experience. Base main: 932e435. Initial handoff docs: 4c26de4. Reviewed implementation commit 397128d1086dba871dbc682586265dd49cdcd380 is pushed to origin/codex/logistics-experience with upstream configured.
 - DEPLOYMENT AUTHORIZED by Saad on 2026-09-15: 'make sure to deploy on vercell too using rms at the end'. Target only new psametra-logistics in RMS team rmspvtltdsoftware-4375s-projects / team_K7mVodqcY51jB9vLxTygtBRm. Existing corporate project psametra-website / prj_uegLEQdah5M3SMVjidjqqoPChpeK remains untouched.
-- No deployment yet at this snapshot. Initial targetless MCP deployment call was rejected by automatic review due to wrong-project risk; a later explicitly scoped call reached schema validation. Official Vercel MCP docs confirm direct file deployment supports name, target, teamId, files [{file,data,encoding}] and projectSettings. Authenticated connector can deploy; Vercel CLI 59.17.0 is available via npx but is logged out.
-- Next: commit reviewed files and push branch, prepare exact src/public/package/config file payload, deploy through authenticated Vercel connector with explicit name psametra-logistics, teamId above and production target. Do not deploy corporate project. test-results/prepare-deploy.mjs builds an ignored payload for the current files; regenerate after any code edit. It excludes reference masters, tests, docs and QA output. .vercelignore also records exclusions for future CLI use.
-- Metadata uses SITE_URL if configured, otherwise VERCEL_PROJECT_PRODUCTION_URL, otherwise local fallback. Verify live OpenGraph host after deployment; use assigned logistics URL, never invent one. Keep noindex for the demo.
-- After deployment: verify status READY, all live routes/media, tracking/quote/portal workflows and console errors, record actual URL/deployment ID/commit here, commit/push final handoff. Real-device motion review by Saad remains the only subjective acceptance step; do not claim measured frame rate.
+- Production deployment succeeded through Vercel CLI 59.17.0 after Saad authenticated the RMS account. Verified account rmspvtltdsoftware-4375, team_K7mVodqcY51jB9vLxTygtBRm; newly created project psametra-logistics / prj_VTQINeiuw7EOLltnZUmGvBkL4spB. Deployment dpl_CCWwDERteRnuwjADcPTvUwqKgtLk is READY, target production. Application source matches reviewed commit 397128d.
+- Public URL: https://psametra-logistics.vercel.app/. Immutable deployment: https://psametra-logistics-oahpcbw6b-rmspvtltdsoftware-4375s-projects.vercel.app. Inspector: https://vercel.com/rmspvtltdsoftware-4375s-projects/psametra-logistics/CCWwDERteRnuwjADcPTvUwqKgtLk. The homepage loads publicly with HTTP 200 and correct branding.
+- GitHub branch is pushed, but automatic Vercel Git linking is unavailable: Vercel Hobby rejects private organization repositories (409). No plan upgrade or repository visibility change was made. Future reviewed releases can use the authenticated CLI: npx --yes vercel@59.17.0 deploy --prod --yes --scope rmspvtltdsoftware-4375s-projects. Verify .vercel/project.json matches the logistics project ID above before deploying.
+- .vercelignore excludes reference masters, tests, docs, QA output and unrelated temporary audit reports. CLI-generated .env.local and .vercel/ remain ignored; never commit credentials. The connector was unavailable during final deployment; the older ignored MCP payload is only a fallback, not the live release mechanism.
+- Latest user attachment (fe502b41-702b-469b-8e00-df73c2e80f61/pasted-text.txt) describes a further premium upgrade. Saad explicitly prioritized deploying the current build first. Do not represent those additional upgrades as completed; review that brief after delivering the initial live link.
+- Metadata uses SITE_URL if configured, otherwise VERCEL_PROJECT_PRODUCTION_URL, otherwise local fallback. Live OpenGraph image host verified as https://psametra-logistics.vercel.app/opengraph-image.jpg (with generated version query). Keep noindex for the demo.
+- Live verification passed on https://psametra-logistics.vercel.app/: 34/34 browser checks, zero unexpected browser errors, and 16/16 tests with zero skips (portal and tracking browser regressions targeted the live URL). All eight routes at desktop/tablet/mobile sizes, real film seeking/transition and fallbacks, tracking, quote download and portal interactions pass. Current ignored test-results/browser-report.json records the live URL and results.
+- Initial deployment task is complete. Next work: review the latest premium-upgrade brief before further feature/design work; Saad can review real-device motion as the subjective acceptance step. Do not claim measured frame rate. This final handoff and deployment exclusions are the only changes after the application release commit; check git log for their documentation commit.
 
 **Commands and environment**
 
@@ -79,7 +84,7 @@ Updated 2026-09-15. This is the single plan/handoff. Continue the entire build, 
 
 **Known limitations at this checkpoint**
 
-Deployment/live verification and final Git checkpoint are pending. All transactions are fictional local state. Maps are schematic; narrow waterways/port approaches use simplified geometry. Real-device motion smoothness is not measured. Follow the current checkpoint above rather than older prospective recommendations below.
+Deployment is live and verified. Automatic GitHub deployment linking requires a Vercel plan that supports private organization repositories; manual CLI deployment works. All transactions are fictional local state. Maps are schematic; narrow waterways/port approaches use simplified geometry. Real-device motion smoothness is not measured. The newly attached premium-upgrade request is a subsequent scope and has not been implemented in this release. Follow the current checkpoint above rather than older prospective recommendations below.
 
 ## PRODUCT DEFINITION
 

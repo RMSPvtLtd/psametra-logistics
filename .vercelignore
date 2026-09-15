@@ -2,6 +2,7 @@ reference/
 test-results/
 tests/
 scripts/
+.tmp*
 BUILD_BRIEF.md
 AGENTS.md
 CLAUDE.md
