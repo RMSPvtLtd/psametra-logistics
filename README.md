@@ -12,3 +12,5 @@ The existing Psametra corporate website is reference-only and remains untouched.
 
 Repository: `RMSPvtLtd/psametra-logistics`  
 Local workspace: `E:\psametra-logistics`
+
+Run locally with npm ci and npm run dev. Verification and deployment instructions, exact results and continuation state are in BUILD_BRIEF.md.

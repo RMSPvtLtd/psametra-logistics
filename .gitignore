@@ -12,3 +12,5 @@ Thumbs.db
 coverage/
 playwright-report/
 test-results/
+*.tsbuildinfo
+/Start_frame_the_new_front_fac*.mp4
