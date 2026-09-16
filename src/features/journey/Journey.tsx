@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/icon";
-import { shipments } from "@/data/demo";
+import { shipments, quotes, documents, formatDate } from "@/data/demo";
 
 const steps = [
   { name: "Quote", title: "The right questions. A clearer start.", text: "Define your route, cargo and ready date. Give the next step the information it needs.", href: "/quote", action: "Start a freight inquiry" },
@@ -14,8 +14,18 @@ const steps = [
   { name: "Close", title: "Every document. In its place.", text: "Bring shipment records, handover documents and invoices into one customer workspace.", href: "/portal-demo?tab=documents", action: "Open sample documents" },
 ];
 
+const sample = shipments[1];
+const handoffs = [
+  [['Cargo brief', sample.cargo], ['Route', `${sample.origin.city} → ${sample.destination.city}`]],
+  [['Sample quote', quotes[1].id], ['Quote status', quotes[1].status]],
+  [['Current milestone', sample.currentMilestone], ['Next handover', sample.nextMilestone]],
+  [['Shipment status', sample.status], ['Estimated arrival', formatDate(sample.eta)]],
+  [['Exception', sample.exception!.title], ['Next action', sample.exception!.nextAction]],
+  [['Shipping record', documents.find(document => document.id === sample.documentIds[0])!.name], ['Shipment reference', sample.id]],
+];
+
 export function Journey() {
   const [active, setActive] = useState(0);
   const current = steps[active];
-  return <div className="journey"><div className="journey-steps" role="group" aria-label="Explore the freight journey">{steps.map((step, i) => <button className={i === active ? "journey-step active" : "journey-step"} key={step.name} onClick={() => setActive(i)} aria-pressed={i === active} aria-controls="journey-detail"><span className="journey-node">{String(i + 1).padStart(2, "0")}</span><span>{step.name}</span></button>)}</div><div className="journey-detail" id="journey-detail" aria-live="polite"><span className="journey-large-number" aria-hidden="true">0{active + 1}</span><div><h3>{current.title}</h3><p>{current.text}</p><Link className="text-link" href={current.href}>{current.action}<Icon name="arrow" /></Link></div></div></div>;
+  return <div className="journey"><div className="journey-steps" role="group" aria-label="Explore the freight journey">{steps.map((step, i) => <button className={`journey-step${i === active ? " active" : i < active ? " is-past" : ""}`} key={step.name} onClick={() => setActive(i)} aria-pressed={i === active} aria-controls="journey-detail"><span className="journey-node">{String(i + 1).padStart(2, "0")}</span><span>{step.name}</span></button>)}</div><div className="journey-detail" id="journey-detail" aria-live="polite"><aside className="journey-record"><p className="eyebrow">ILLUSTRATIVE JOURNEY / SEA FREIGHT</p><strong>{sample.origin.code}<span aria-hidden="true">→</span>{sample.destination.code}</strong><dl>{handoffs[active].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></aside><div><p className="eyebrow">{String(active + 1).padStart(2, '0')} / {current.name}</p><h3>{current.title}</h3><p>{current.text}</p><Link className="text-link" href={active === 3 ? `/track?ref=${sample.id}` : current.href}>{current.action}<Icon name="arrow" /></Link></div></div></div>;
 }

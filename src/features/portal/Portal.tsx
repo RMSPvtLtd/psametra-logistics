@@ -186,7 +186,7 @@ export function Portal({ initialTab = "Shipments" }: { initialTab?: Section } = 
               {quoteStatus(selectedQuote) === "Awaiting acceptance" ? (
                 <>
                   <p>Accept this sample quote? This marks it Accepted only in this preview. No shipment is booked, no payment is taken, and the change resets when you leave or reload.</p>
-                  <button className="btn btn-primary" type="button" onClick={() => { if (quoteStatus(selectedQuote) === "Awaiting acceptance") setAcceptedIds((ids) => [...ids, selectedQuote.id]); }}>Confirm sample acceptance <span aria-hidden="true">↗</span></button>
+                  <button className="btn btn-primary" type="button" onClick={() => { if (quoteStatus(selectedQuote) === "Awaiting acceptance") { setAcceptedIds((ids) => [...ids, selectedQuote.id]); quoteDialog.current?.querySelector<HTMLButtonElement>('.dialog-close')?.focus(); } }}>Confirm sample acceptance <span aria-hidden="true">↗</span></button>
                 </>
               ) : (
                 <>

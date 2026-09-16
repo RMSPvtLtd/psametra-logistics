@@ -54,7 +54,7 @@ export function DocumentList({ ids, publicOnly = false }: { ids: string[]; publi
               <div className="document-label">
                 <strong>{item.name}</strong>
                 <span>{item.reference} · {item.type}</span>
-                {item.status === "Pending" && <small>Available after the next shipment milestone.</small>}
+                {item.status === "Pending" && <small>Not available yet. Check the shipment’s next action.</small>}
               </div>
               <button className="document-action" type="button" disabled={item.status !== "Ready"} onClick={() => setSelected(item)} aria-label={item.status === "Ready" ? `View ${item.name}, ${item.reference}` : `${item.name} is pending`}>
                 {item.status === "Ready" ? "View ↗" : "Pending"}

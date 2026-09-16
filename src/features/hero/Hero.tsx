@@ -48,10 +48,13 @@ export function Hero({ children }: { children: ReactNode }) {
       if (actions.current) actions.current.inert = progress > .4;
       if (scene.current) scene.current.inert = phase.cover === 1;
       if (counter.current) counter.current.textContent = String(Math.round(progress * 100)).padStart(3, "0");
-      // Match the filmed mark under object-fit:cover, including wide/short screens.
+      // Match the grille, then bring the covered mark into view before rotation.
       const scale = Math.max(film.clientWidth / 1920, film.clientHeight / 1080);
-      root.style.setProperty("--mark-y", `${350 * scale + (film.clientHeight - 1080 * scale) * .55}px`);
-      root.style.setProperty("--mark-size", `${490 * scale}px`);
+      const filmedY = 350 * scale + (film.clientHeight - 1080 * scale) * .55;
+      const filmedSize = 490 * scale;
+      const fittedSize = Math.min(filmedSize, film.clientHeight * .64, film.clientWidth * .64);
+      root.style.setProperty("--mark-y", `${filmedY + (film.clientHeight / 2 - filmedY) * phase.cover}px`);
+      root.style.setProperty("--mark-size", `${filmedSize + (fittedSize - filmedSize) * phase.cover}px`);
     };
     const queue = () => { if (!frame && enabled) frame = requestAnimationFrame(update); };
     const fallback = () => {

@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 export default async function TrackPage() {
   await connection();
   return <div className="container page-body">
-    <section className="page-intro page-intro-split">
-      <div><p className="eyebrow">SHIPMENT VISIBILITY</p><h1>Every step.<br />In full view.</h1></div>
+    <section className="page-intro page-intro-split utility-intro">
+      <div><p className="eyebrow">SHIPMENT VISIBILITY</p><h1>Every step. In full view.</h1></div>
       <p>From the latest milestone to the next handover. Enter a sample reference to explore the journey.</p>
     </section>
     <Tracking />

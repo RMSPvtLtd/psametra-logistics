@@ -15,13 +15,13 @@ export default function AboutPage() {
       <h1>Built around<br />the whole journey.</h1>
       <p>Physical freight and digital clarity, brought together in one connected experience.</p>
     </section>
-    <div className="about-photo"><Image src="/media/sea-freight.jpg" alt="Container vessel at sea, illustrating the physical freight journey" fill sizes="100vw" /></div>
+    <figure className="about-figure"><div className="about-photo"><Image src="/media/sea-freight.jpg" alt="Container vessel at sea, illustrating the physical freight journey" fill loading="eager" sizes="100vw" /></div><figcaption><span className="eyebrow">PHYSICAL FREIGHT / DIGITAL CONTINUITY</span><span>One experience, from public website to customer workspace.</span></figcaption></figure>
     <section className="about-story">
       <div><p className="eyebrow">THE IDEA BEHIND THE EXPERIENCE</p><h2>A clearer view.<br />From first inquiry<br />to final handover.</h2></div>
       <div>
         <p>A logistics website can do more than introduce a service. It can help a customer prepare an inquiry, follow a shipment, understand an exception and find the right document.</p>
         <p>Psametra created this concept to show those moments working together. Customer records, shipment journeys, quotes and freight documents in the demo are fictional. Psametra builds the website and software experience for a logistics business.</p>
-        <Link className="text-link" href="/platform">Explore the connected platform <Icon name="diagonal" size={18} /></Link>
+        <Link className="text-link" href="/contact">Build this around your business <Icon name="diagonal" size={18} /></Link>
       </div>
     </section>
     <div className="about-facts">

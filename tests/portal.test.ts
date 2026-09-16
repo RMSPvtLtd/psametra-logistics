@@ -24,10 +24,12 @@ test("portal filters, quote acceptance, sample documents and public document pri
     await page.getByRole("tab", { name: /Quotes/ }).click();
     const pendingQuote = quotes.find((quote) => quote.status === "Awaiting acceptance")!;
     await page.getByRole("button", { name: `View quote ${pendingQuote.id}` }).click();
-    await page.getByRole("button", { name: /Confirm sample acceptance/ }).click();
+    await page.getByRole("button", { name: /Confirm sample acceptance/ }).focus();
+    await page.keyboard.press("Enter");
     const quoteDialog = page.getByRole("dialog");
     assert.match(await quoteDialog.innerText(), /Accepted in this preview/);
     assert.equal(await quoteDialog.getByRole("button", { name: "Accepted", exact: true }).isDisabled(), true);
+    assert.equal(await quoteDialog.getByRole("button", { name: "Close quote" }).evaluate(element => element === document.activeElement), true);
     await page.keyboard.press("Escape");
     assert.equal(await page.getByRole("button", { name: `View quote ${pendingQuote.id}` }).evaluate((element) => element === document.activeElement), true);
     const expiredQuote = quotes.find((quote) => quote.status === "Expired")!;

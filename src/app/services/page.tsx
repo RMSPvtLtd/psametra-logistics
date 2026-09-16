@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@/components/icon';
-import { services } from '@/data/demo';
+import { services, shipments } from '@/data/demo';
 
 export const metadata: Metadata = {
   title: 'Freight services',
@@ -22,8 +22,8 @@ export default function ServicesPage() {
       <p>Explore how each freight mode connects cargo, handovers and information. Example service experiences for a logistics business.</p>
     </section>
     <div className="services-page-list">
-      {services.map((service) => <section id={service.id} className="service-detail" key={service.id}>
-        <div className="service-detail-image"><Image src={imagery[service.id].src} alt={imagery[service.id].alt} fill sizes="(max-width: 767px) 100vw, 50vw" /></div>
+      {services.map((service, index) => <section id={service.id} className="service-detail" key={service.id}>
+        <div className="service-detail-visual"><div className="service-detail-image"><Image src={imagery[service.id].src} alt={imagery[service.id].alt} fill loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 767px) 100vw, 50vw" /><span className="service-image-index" aria-hidden="true">0{index + 1} / {service.id.toUpperCase()}</span></div><Link className="service-route-caption" href={`/track?ref=${shipments[index].id}`}><span><span className="eyebrow">EXPLORE A SAMPLE MOVEMENT</span><strong>{shipments[index].origin.city} → {shipments[index].destination.city}</strong></span><Icon name="diagonal" size={20} /></Link></div>
         <div className="service-detail-copy">
           <p className="eyebrow">{service.eyebrow}</p>
           <h2>{service.name}</h2>

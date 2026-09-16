@@ -1,413 +1,152 @@
-# PSAMETRA LOGISTICS - BUILD BRIEF
-
-## CRITICAL PROJECT BOUNDARY
-
-**NEW BUILD - DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
-
-This repository is a completely new standalone project named **psametra-logistics**.
-
-- GitHub: `RMSPvtLtd/psametra-logistics`
-- Local workspace: `E:\psametra-logistics`
-- Purpose: a premium logistics-company demo website Psametra can show to prospective logistics/freight/3PL clients as an example of what Psametra can build for their business.
-- The existing Psametra corporate website at `https://psametra-website.vercel.app/` is the agency/company front door. It is NOT being redesigned, replaced, refactored, migrated, or used as the implementation base.
-- The legacy repository and `E:\psametra-website` must remain untouched unless Saad explicitly opens a separate task for them.
-
-The legacy site may be inspected only for verified Psametra information, branding, contact details, legitimate content, and reusable brand assets. Do not copy its page structure, source architecture, layout system, animation architecture, or component hierarchy into this project just because they exist.
-
-**Specific motion exception authorized by Saad on 2026-09-15:** Use the page-transition motion from `https://psametra-website.vercel.app/` after the truck film reaches its grille/mark close-up: the Psametra mark rotates 90 degrees, then its upper half moves up and lower half moves down to reveal the next section. Read-only inspection of `src/components/navigation/transition-provider.tsx` and `transition.css` in the legacy repository is authorized for this effect. Recreate this local hero transition using native browser/CSS motion; the legacy repository remains untouched and its global routing/layout architecture is not needed. Preserve a static reduced-motion/mobile alternative.
-
-## STATUS
-
-Research/audit: **COMPLETE**.
-Implementation: **BUILT, VERIFIED AND DEPLOYED** on `codex/logistics-experience`.
-Live URL: **https://psametra-logistics.vercel.app/** (RMS Vercel production; live regression checks passed).
-Production deployment: **AUTHORIZED by Saad on 2026-09-15, only for the new psametra-logistics project in the RMS Vercel team, after final QA.**
-
-The application was built from a clean slate. Both reference repositories remain read-only.
-
-### Implementation architecture and work plan
-
-- Next.js App Router, TypeScript, one tokenized CSS system; static/server pages with focused client components for hero, tracking, quote and portal interactions.
-- Charcoal/off-white editorial grids, restrained cobalt, locally hosted open-source Inter. Approved poster paints first; the silent GOP-12 video scrubs across 260vh on capable desktops. Mobile, data-saving and reduced-motion visitors get the poster.
-- `src/data/demo.ts` owns typed customers, shipments, milestones, references, documents, quotes and service content. Public tracking reveals only customer-safe fields/documents. All routes reuse the same records.
-- `src/components/` contains shell and shipment presentation; `src/features/` owns interactions; `src/app/` owns the eight requested routes and metadata. No database, carrier API, authentication or external submission is implied by the demo.
-- [x] Foundation: shell, tokens, shared demo data and invariant/reference tests.
-- [x] Sales experience: film hero, homepage narrative, services, tracking and validated quote flow.
-- [x] Software proof: attention-first platform, customer portal, quotes, documents and invoice detail.
-- [x] Verification: every route at desktop/tablet/mobile sizes, interaction/error states, keyboard/reduced motion, lint/typecheck/tests/build and measured Lighthouse reports.
-- Keep source assets intact. Generated QA files live in ignored `test-results/`. Review every implementation diff before commits/pushes; deployment is authorized only for the new RMS logistics project described below.
-
-### CONTINUATION CHECKPOINT — read before resuming
-
-Updated 2026-09-15. This is the single plan/handoff. Continue the entire build, QA and deployment; preserve user media edits and both legacy repositories.
-
-**Completed and verified**
-
-- All eight routes complete: home, services, track, quote, platform, portal-demo, about, contact. Next 16.3.5 / React 19.3.0 / TypeScript / native tokenized CSS / self-hosted Inter.
-- Shared fictional shipment, quote and document data; tracking results follow the URL through Back and same-route navigation. Native inquiry flow validates route/cargo/contact, supports back/review and downloads a local summary. Portal provides active/completed/search, local quote acceptance, invoice/document dialogs and downloads. Platform prioritizes exceptions and waiting work. No backend, carrier, booking, payment or email submission is implied.
-- Desktop hero: 260vh native rAF video seeking, decoded final grille frame, cover, 90-degree mark rotation, upper/lower split, content reveal. Reverse scroll restores film and focus. Mobile, reduced motion, save-data and failed-video paths retain the poster and normal content flow. CSS reserves the capable desktop layout before hydration to prevent layout shift; scripting-disabled browsers retain static flow.
-- Maps follow central route waypoints, including Suez/Gibraltar/English Channel for sea; nearby road routes zoom in. Geometry is schematic Natural Earth 1:110m, not navigation or GPS; narrow canals/gulfs/port approaches are simplified. Event timestamps include time and UTC. Quote ready dates follow visitor-local calendar day; timezone-boundary tests pass.
-- All requested desktop/tablet/mobile route screenshots reviewed. Tablet headings fixed after visual review. Public/portal document visibility, keyboard/focus, no-overflow, error states, query navigation and reset behavior checked.
-- Primary checks: lint, typecheck and production build pass; 16 tests pass (including portal/tracking browser regressions); production browser script passes 34/34, zero unexpected browser errors. Extended axe WCAG 2/2.1 A/AA scan passes 20/20 page/viewport combinations after muted-text/count contrast corrections.
-- Lighthouse 13 / Chrome 153, local production URL: desktop Performance 100, Accessibility 100, Best Practices 100, SEO 66, LCP 0.7s, CLS 0; mobile Performance 92, Accessibility 100, Best Practices 100, SEO 66, LCP 3.4s, CLS 0. SEO is reduced by intentional demo noindex/robots policy. These are lab runs, not field/Core Web Vitals or 60fps claims. Valid JSON/HTML reports exist despite a Windows Chrome temporary-profile cleanup EPERM causing CLI exit 1 AFTER report generation; runtimeError is null in both valid reports. Later changes only darkened muted text and added the Vercel production URL metadata fallback.
-- Runtime video SHA-256 matches the approved 1080p GOP-12 source exactly. User-approved replacement masters/sources are preserved in reference/; previous reference sources remain in Git history.
-
-**Git and deployment checkpoint**
-
-- Branch: codex/logistics-experience. Base main: 932e435. Initial handoff docs: 4c26de4. Reviewed implementation commit 397128d1086dba871dbc682586265dd49cdcd380 is pushed to origin/codex/logistics-experience with upstream configured.
-- DEPLOYMENT AUTHORIZED by Saad on 2026-09-15: 'make sure to deploy on vercell too using rms at the end'. Target only new psametra-logistics in RMS team rmspvtltdsoftware-4375s-projects / team_K7mVodqcY51jB9vLxTygtBRm. Existing corporate project psametra-website / prj_uegLEQdah5M3SMVjidjqqoPChpeK remains untouched.
-- Production deployment succeeded through Vercel CLI 59.17.0 after Saad authenticated the RMS account. Verified account rmspvtltdsoftware-4375, team_K7mVodqcY51jB9vLxTygtBRm; newly created project psametra-logistics / prj_VTQINeiuw7EOLltnZUmGvBkL4spB. Deployment dpl_CCWwDERteRnuwjADcPTvUwqKgtLk is READY, target production. Application source matches reviewed commit 397128d.
-- Public URL: https://psametra-logistics.vercel.app/. Immutable deployment: https://psametra-logistics-oahpcbw6b-rmspvtltdsoftware-4375s-projects.vercel.app. Inspector: https://vercel.com/rmspvtltdsoftware-4375s-projects/psametra-logistics/CCWwDERteRnuwjADcPTvUwqKgtLk. The homepage loads publicly with HTTP 200 and correct branding.
-- GitHub branch is pushed, but automatic Vercel Git linking is unavailable: Vercel Hobby rejects private organization repositories (409). No plan upgrade or repository visibility change was made. Future reviewed releases can use the authenticated CLI: npx --yes vercel@59.17.0 deploy --prod --yes --scope rmspvtltdsoftware-4375s-projects. Verify .vercel/project.json matches the logistics project ID above before deploying.
-- .vercelignore excludes reference masters, tests, docs, QA output and unrelated temporary audit reports. CLI-generated .env.local and .vercel/ remain ignored; never commit credentials. The connector was unavailable during final deployment; the older ignored MCP payload is only a fallback, not the live release mechanism.
-- Latest user attachment (fe502b41-702b-469b-8e00-df73c2e80f61/pasted-text.txt) describes a further premium upgrade. Saad explicitly prioritized deploying the current build first. Do not represent those additional upgrades as completed; review that brief after delivering the initial live link.
-- Metadata uses SITE_URL if configured, otherwise VERCEL_PROJECT_PRODUCTION_URL, otherwise local fallback. Live OpenGraph image host verified as https://psametra-logistics.vercel.app/opengraph-image.jpg (with generated version query). Keep noindex for the demo.
-- Live verification passed on https://psametra-logistics.vercel.app/: 34/34 browser checks, zero unexpected browser errors, and 16/16 tests with zero skips (portal and tracking browser regressions targeted the live URL). All eight routes at desktop/tablet/mobile sizes, real film seeking/transition and fallbacks, tracking, quote download and portal interactions pass. Current ignored test-results/browser-report.json records the live URL and results.
-- Initial deployment task is complete. Next work: review the latest premium-upgrade brief before further feature/design work; Saad can review real-device motion as the subjective acceptance step. Do not claim measured frame rate. This final handoff and deployment exclusions are the only changes after the application release commit; check git log for their documentation commit.
-
-**Commands and environment**
-
-- npm ci; npm run dev (127.0.0.1:3000); npm run build; npm run start -- --port 3001.
-- npm run lint; npm run typecheck; npm test. Include browser regression tests with PowerShell $env:PORTAL_TEST_URL='http://127.0.0.1:3001'; npm test.
-- $env:BASE_URL='http://127.0.0.1:3001'; npm run test:browser; node scripts/accessibility-check.mjs. Browser QA files/reports live in ignored test-results/. Chrome path override: CHROME_PATH.
-- Node 24.15.0 / npm 11.12.1. Chrome: C:\Program Files\Google\Chrome\Application\chrome.exe. Lighthouse command: node node_modules/lighthouse/cli/index.js URL --preset=desktop --chrome-flags='--headless' --output=json --output=html --output-path=./test-results/lighthouse-desktop --only-categories=performance,accessibility,best-practices,seo --quiet. Omit preset for mobile. Set CHROME_PATH first.
-- Local server processes can end on new user messages: verify/restart before tests. Chrome Lighthouse needs approved escalation because sandbox GPU launch fails. Git writes/network also need approved escalation. Do not confuse environment errors with application defects.
-
-**Asset and factual evidence**
-
-- Approved hero media now comes from the user's free TensorPix web workflow. `reference/hero/psametra-logistics-hero-master-4k.mp4`: 3840x2160, H.264 + AAC, 24fps, 10.0s, 17,586,188 bytes, SHA-256 `0D6A9F37186A7A1BDE1662D12A59668FE2A93846906953816D1251BF8ECCFB89`, 1 video keyframe. `reference/hero/psametra-logistics-hero-web-1080p.mp4`: 1920x1080, H.264 + AAC, 24fps, 10.0s, 6,871,038 bytes, SHA-256 `6A1352A63FA4A46AA1BD85B9E44348609E66C557A17C40B684ADCDEF7F3D4EEA`, 1 video keyframe. `reference/hero/psametra-logistics-hero-web-1080p-g12.mp4`: browser-processed delivery derivative, 1920x1080, H.264, 24fps, 10.0s, 5,911,091 bytes, SHA-256 `1F2ABF4A90B31FA741C2DFB8419CA1904ACA1A5C3C5A02FBAF9586B16010B2A2`, **20 video keyframes** at 0.5-second intervals, no audio stream.
-- `public/media/freight-film.mp4` is byte-identical to the verified `psametra-logistics-hero-web-1080p-g12.mp4` derivative and is the current runtime file. The derivative was created through the free browser-based ffmpeg-webCLI workflow, not by local transcoding. The 4K master and original TensorPix 1080p source remain preserved as references; the runtime derivative removes audio and adds dense GOP-12 keyframes for scroll seeking.
-- Air photo: nrd, https://unsplash.com/photos/white-plane-releasing-cargo-Woev36hRtIQ (Unsplash License). Sea photo: Pankaj Mishra, https://www.pexels.com/photo/cargo-containers-in-a-ship-11825325/ (Pexels free-use license). These depict freight generically, not company assets/partners.
-- Map: Natural Earth public-domain 1:110m land, https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson. `scripts/prepare-map.mjs` generated the committed runtime SVG from the ignored downloaded JSON in `test-results/`. Map labels explicitly say illustrative, not real-time GPS.
-- Verified actual sales contact: `rmspvtltd.software@gmail.com`; existing corporate site `https://psametra-website.vercel.app/`. Reference-only source: `E:\psametra-website\src\content\site.ts`. No invented phone/address.
-- Read-only RMS inspection confirmed public-safe tracking excludes pricing, internal notes/risk reasons and account data (`air/backend/schemas/tracking.py`). Keep invoices/prices in the clearly fictional portal. No reference repository was modified.
-
-**Known limitations at this checkpoint**
-
-Deployment is live and verified. Automatic GitHub deployment linking requires a Vercel plan that supports private organization repositories; manual CLI deployment works. All transactions are fictional local state. Maps are schematic; narrow waterways/port approaches use simplified geometry. Real-device motion smoothness is not measured. The newly attached premium-upgrade request is a subsequent scope and has not been implemented in this release. Follow the current checkpoint above rather than older prospective recommendations below.
-
-## PRODUCT DEFINITION
-
-The website should behave like a convincing modern logistics/freight company's public digital presence, while simultaneously demonstrating the kind of customer-facing and operational software Psametra can build for a logistics client.
-
-It is a sales demo, not evidence that Psametra itself owns trucks, freight terminals, fleets, customs licences, warehouses, or a global forwarding network. Avoid invented factual claims.
-
-The experience should make a prospective logistics client think:
-
-> "Our company could look and operate like this online."
-
-The strongest concept is **physical freight + digital control in one connected experience**.
-
-## PRIMARY EXPERIENCE PRINCIPLES
-
-1. **Logistics first, software second.** The visitor must immediately read this as a serious freight/logistics company website, not a generic SaaS template.
-2. **Operational usefulness, not brochureware.** Quote, track, shipment visibility, documents, exceptions, and portal concepts should feel like one system.
-3. **Premium industrial design.** Editorial typography, cinematic freight imagery, restrained motion, dark/neutral surfaces, precise operational UI.
-4. **Truthful demo framing.** Demo data is fine. Fake achievements, client logos, testimonials, fleet counts, years in operation, coverage statistics, awards, certifications, SLAs, or "live" integrations are not.
-5. **Strong conversion path.** The main actions are `Get a quote`, `Track shipment`, and `Explore the platform`/`View customer portal demo`.
-
-## RESEARCH ALREADY COMPLETED - DO NOT REPEAT FROM ZERO
-
-### Premium logistics references
-
-- Einride: physical freight and software presented as one system; large editorial layouts; operational product narrative instead of generic service cards. Reference: `https://www.einride.tech/`
-- Flexport: freight forwarding/control-tower positioning and the idea of a logistics platform that exists in the physical world. Reference: `https://www.flexport.com/products/flexport-platform/`
-- Kuehne+Nagel myKN: quote -> book -> track -> explore/reporting; proactive alerts; central documents; integration narrative. Reference: `https://www.kuehne-nagel.com/digital-services/mykn`
-- Forto was attempted during research but its target page returned a 403; do not treat unsupported Forto details as verified findings.
-
-Local reference screenshots are under `reference/research/`.
-
-### Psametra sources inspected
-
-- Corporate site: reference-only for legitimate Psametra brand/contact/company data.
-- Muhammad Saad portfolio: `https://muhammadsaad-portfolio.vercel.app/`
-- Abdur Rafay Khan portfolio: `https://abdur-rafay-khan-portfolio.vercel.app/`
-
-The portfolios establish team capability, but they are not logistics-client proof and should not be presented as such on the demo logistics site.
-
-## RMS LOGISTICS SOFTWARE - VERIFIED CAPABILITY SOURCE
-
-`E:\LogisticSoftware\sea-and-air` was audited as a real working reference product. Do not mutate that repository from this project.
-
-Verified useful capabilities/patterns include:
-
-- freight inquiry and quote generation
-- rate-card-driven and manual quoting paths
-- quote comparison and customer quote acceptance
-- invoice generation/PDF/email workflow
-- operations control tower
-- shipment list/detail views
-- route/network maps
-- shipment risk/hold/priority handling
-- document management
-- worker queues and stage completion
-- customer portal
-- public air tracking
-- sea container tracking
-- journey timelines and milestone checklists
-- customer-safe vs internal operational data boundaries
-
-The air vertical passed **413 backend tests** in the audit. The sea vertical passed **49 tests**. The air frontend production build succeeded. These facts support using the system as an internal capability/design reference, not claiming it is part of this new public site unless Sol deliberately implements a demo version here.
-
-## RECOMMENDED SITE MAP
-
-Build a focused multi-route demo rather than a huge fake enterprise site:
-
-- `/` - cinematic home
-- `/services` - Air, Sea, Road, Customs/warehousing style solution categories; clearly demo content unless backed by actual client copy
-- `/track` - polished shipment tracking demo
-- `/quote` - multi-step freight quote/inquiry experience
-- `/platform` - digital logistics platform/control-tower story
-- `/portal-demo` - customer portal demo with sample shipments, milestones, documents and exceptions
-- `/about` - concise demonstration-company story; no fabricated history or metrics
-- `/contact` - real Psametra sales/contact bridge or clearly labelled demo enquiry route
-
-Do not add routes merely to imitate a large freight company. Depth and polish matter more than page count.
-
-## HOMEPAGE STRUCTURE - LOCKED DIRECTION
-
-1. **Cinematic freight hero** - truck/warehouse sequence, strong headline, tiny supporting copy, primary quote CTA, secondary tracking CTA.
-2. **Immediate utility strip** - Track shipment / Get quote / Customer portal demo.
-3. **Modes / logistics solutions** - Air, Sea, Road plus supporting customs/warehousing only where the demo copy remains generic and non-factual.
-4. **Connected journey** - Quote -> Book/Plan -> Move -> Track -> Handle exceptions -> Documents/Invoice.
-5. **Digital platform reveal** - transition from physical freight imagery into a control-tower/dashboard composition inspired by real RMS logistics workflows.
-6. **Tracking experience preview** - usable sample reference or obvious demo mode, not a fake live lookup.
-7. **Visibility / exception-management proof** - route map, milestone rail, at-risk state, documents and customer-safe updates.
-8. **Portal preview** - sample active/completed shipments, quotes/documents and journey detail.
-9. **Conversion close** - `Build this for your logistics business` / Psametra consultation CTA can appear in the closing area or footer so the demo remains truthful.
-
-## HERO ASSET - VERIFIED
-
-Reference assets live in `reference/hero/`.
-
-- `psametra-logistics-hero-master-4k.mp4`: approved TensorPix master, 3840x2160, H.264 + AAC, 24fps, 10.0s, 17,586,188 bytes, **1 video keyframe**.
-- `psametra-logistics-hero-web-1080p.mp4`: approved TensorPix web source, 1920x1080, H.264 + AAC, 24fps, 10.0s, 6,871,038 bytes, **1 video keyframe**.
-- `psametra-logistics-hero-web-1080p-g12.mp4`: approved browser-processed delivery derivative, 1920x1080, H.264, 24fps, 10.0s, 5,911,091 bytes, **20 video keyframes** at 0.5-second intervals, no audio. This is copied byte-for-byte to `public/media/freight-film.mp4`.
-- `psametra-logistics-hero-poster.jpg`: fallback/poster.
-
-The source video visually matches the intended narrative: branded truck in a wet warehouse yard -> direct approach -> Psametra mark fills the grille/frame.
-
-**The runtime delivery file now has dense GOP-12 keyframes.** The original TensorPix reference files still each have one keyframe, but the browser-processed 1080p runtime derivative has 20 keyframes at exact 0.5-second intervals and no audio. It is the preferred desktop scrub candidate. Verify on real desktop hardware before treating scrub performance as final; use the poster/simplified fallback if real-device seeking is still janky.
-
-Recommended implementation:
-
-- sticky hero section around 200-260vh
-- `video.currentTime` driven by normalized scroll progress inside `requestAnimationFrame`
-- update only after metadata is ready; avoid pointless micro-seeks
-- muted, `playsInline`, no audio track, poster fallback
-- keep copy readable independently of video load
-- on mobile/low-power/reduced-motion, prefer poster + limited transform/fade or simple non-scrub playback instead of forcing desktop scrubbing
-- if real-device testing still shows seek jank, fall back to an image/frame sequence rather than adding animation libraries blindly
-
-## VISUAL DIRECTION
-
-Use **premium industrial minimalism**, not generic startup/SaaS aesthetics.
-
-Preferred language:
-
-- near-black / charcoal / steel / off-white foundation
-- one restrained electric/cobalt blue accent if needed
-- large confident grotesk typography; compact mono/technical labels for operational metadata
-- full-bleed photography/video mixed with precise grid-based software UI
-- sharp or modest radii; avoid a page made from endless rounded cards
-- thin rules, route lines, map geometry, timestamps, shipment references and status rails as visual texture
-- strong whitespace and hierarchy
-
-Avoid:
-
-- generic blue/purple gradients
-- glassmorphism everywhere
-- floating dashboard cards over every photograph
-- stock icon grids
-- fake 3D globes
-- excessive glow
-- animated cursor gimmicks
-- meaningless counters/statistics
-- huge walls of generic marketing copy
-
-## COPY DIRECTION
-
-Copy should sound operational and specific without fabricating company facts.
-
-Useful headline territories:
-
-- `Freight, in full view.`
-- `Move with clarity.`
-- `From quote to delivery, one connected journey.`
-- `Every shipment. A clearer view.`
-- `Physical freight. Digital control.`
-
-Do not lock final wording until it is reviewed in the actual layout. Keep claims qualitative unless a number is genuinely sourced.
-
-## QUOTE EXPERIENCE
-
-The quote demo should borrow business logic concepts from the RMS logistics app without copying that app's UI wholesale.
-
-Recommended fields/steps:
-
-- transport mode
-- origin / destination
-- cargo type
-- weight / volume
-- pieces / dimensions when useful
-- Incoterm
-- ready date
-- contact/company details
-- optional notes
-
-The result can be a polished `Request received / example quote workflow` rather than pretending a real carrier rate was calculated. If sample prices are displayed, label them as demo/example data.
-
-## TRACKING EXPERIENCE
-
-Use a shareable sample reference or demo switch. A strong result view includes:
-
-- origin -> destination
-- mode
-- current milestone
-- last update
-- next milestone
-- route/map treatment
-- milestone rail/timeline
-- exception/at-risk state
-- shipment references
-- documents where appropriate
-
-Never expose internal notes/risk reasons in customer-facing demo views. The RMS product already follows this boundary and is a useful reference.
-
-## DIGITAL PLATFORM / PORTAL DEMO
-
-The strongest software proof is not a fake analytics dashboard. It is a coherent logistics workflow:
-
-- customer sees active and completed shipments
-- shipment detail shows journey status and activity
-- quotes are visible and can be accepted in the concept
-- documents/invoices are organized
-- operations view prioritizes exceptions and waiting work
-- map/network view explains movement rather than serving as decoration
-
-Use believable sample data consistently across routes. One shipment reference should resolve to the same route/customer/status everywhere it appears.
-
-## ENGINEERING RECOMMENDATION
-
-Start fresh. Do not restore the deleted legacy Psametra application files.
-
-Recommended implementation baseline for Sol:
-
-- Next.js App Router + TypeScript
-- Tailwind CSS or a small tokenized CSS layer; choose one coherent styling approach
-- server-first/static-first pages where possible
-- client components only for video scrub, quote form, tracking demo, portal interactions and necessary navigation state
-- no Framer Motion/Three.js unless a concrete interaction cannot reasonably be achieved with CSS/Web Animations/native APIs
-- optimized local assets; no runtime dependency on third-party hero media
-- accessible semantic HTML, keyboard operation and visible focus
-- `prefers-reduced-motion` path from day one
-
-This is a recommendation, not permission to reuse legacy Next components. The architecture must be selected for this new site on its own merits.
-
-## PERFORMANCE BUDGET
-
-The cinematic hero must not make the sales demo feel slow.
-
-Target principles:
-
-- hero poster visible immediately
-- current runtime 1080p GOP-12 derivative is 5,911,091 bytes (~5.6 MiB); measure real loading/seek behavior before deciding whether further compression is necessary
-- runtime GOP-12 derivative contains no audio stream; preserved TensorPix reference sources still contain AAC
-- avoid loading portal/dashboard code on the homepage if it can be code-split
-- lazy-load below-fold heavy media/maps
-- prevent layout shifts with explicit dimensions/aspect ratios
-- no recurring long tasks during normal scroll
-- real mobile fallback rather than assuming desktop decode performance
-
-## CONTENT / EVIDENCE RULES
-
-Allowed:
-
-- Psametra brand assets copied into `reference/brand/`
-- actual Psametra contact links when the page is explicitly bridging back to the agency
-- generic demo freight services and sample operational data when clearly presented as part of the concept
-- interaction/design patterns learned from `E:\LogisticSoftware`
-
-Not allowed without new evidence/approval:
-
-- named logistics clients
-- claims that Psametra operates freight services
-- fleet/warehouse/network size
-- countries served
-- years in logistics
-- certifications/accreditations
-- client revenue/savings/performance claims
-- made-up testimonials
-- invented carrier/port partnerships
-
-## REPOSITORY RULES
-
-1. Work only in `RMSPvtLtd/psametra-logistics` / `E:\psametra-logistics` for this project.
-2. **NEW BUILD - DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
-3. Treat `E:\psametra-website` and its GitHub repository as read-only reference sources.
-4. Treat `E:\LogisticSoftware` as a read-only capability/business-flow reference unless Saad explicitly authorizes changes there.
-5. Keep `reference/` as source/reference material; do not silently overwrite originals.
-6. Do not spend premium context repeating the same competitor/site audit unless something material changed.
-7. Keep `BUILD_BRIEF.md` current at meaningful milestones.
-8. Do not deploy to production or change Vercel settings without explicit approval.
-
-## IMPLEMENTATION ORDER FOR SOL
-
-### P0 - foundation
-
-- choose the new visual system and type scale
-- create fresh app architecture and route shell
-- implement header/footer/mobile navigation
-- establish content/data model for consistent demo shipments/services
-- build accessibility/reduced-motion foundation
-
-### P1 - sales-critical experience
-
-- cinematic hero with safe fallback
-- homepage narrative and utility CTAs
-- tracking demo
-- quote flow
-- services/modes
-
-### P2 - software proof
-
-- platform page
-- customer portal demo
-- journey/timeline/map/exception states
-- documents/invoice visual treatment
-
-### P3 - polish and proof
-
-- desktop/mobile motion refinement
-- responsive audit
-- keyboard/a11y pass
-- Lighthouse/performance pass
-- copy truth audit
-- visual review with Saad
-
-## ACCEPTANCE STANDARD
-
-Do not call the project ready merely because it builds.
-
-Before final handoff/deployment candidate:
-
-- desktop and mobile layouts visually reviewed
-- hero smooth on a representative desktop and has a deliberate mobile/reduced-motion fallback
-- quote and tracking flows work end to end with consistent demo data
-- all routes have real empty/error/demo states where relevant
-- no fake factual business claims
-- no horizontal overflow
-- keyboard navigation and focus states work
-- reduced motion works
-- build/lint/type/tests pass
-- Lighthouse/performance results recorded after the implementation exists
-- Sol updates `BUILD_BRIEF.md` with exact completed items and remaining blockers
-
-## FINAL INSTRUCTION TO SOL
-
-Do not redesign Psametra's corporate site. Do not port its source into this project. Do not waste context re-auditing work already summarized here.
-
-Build **psametra-logistics** from scratch as a premium, cinematic, operationally credible logistics-company demo that demonstrates what Psametra can deliver to a real logistics client.
-
-**NEW BUILD - DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.**
-
+# Psametra Logistics — build brief
+Updated 2026-09-16. Single plan and handoff; read this before continuing.
+
+## Current state
+- **Initial release deployed and verified:** https://psametra-logistics.vercel.app/
+- Workspace: `E:\psametra-logistics`; GitHub: `RMSPvtLtd/psametra-logistics` (private).
+- Branch: `codex/logistics-experience`. Application release: `397128d1086dba871dbc682586265dd49cdcd380`; deployment handoff pushed: `ff4c4cd8c39782a460f2d38f44167bb163e0cc97`. Main remains `932e435`.
+- **Premium upgrade:** persistent light/dark mode, seven reproduced defect fixes and refinements across all eight pages. Final checks passed. Saad authorized GitHub publication with “push it” on 2026-09-16. This upgrade is recorded on `codex/logistics-experience`; use its Git log for the source revision. The Vercel production release above is unchanged.
+- Full latest user request is preserved verbatim at `reference/requests/premium-upgrade.md`. Original baseline detail is recoverable from Git, e.g. `git show ff4c4cd:BUILD_BRIEF.md`.
+- Existing untracked `.tmp_audit_report.txt` and `.tmp_followup_report.txt` are earlier audit output; preserve them. They contain stale local failures and are excluded from deployment.
+
+## Boundaries and authority
+- **NEW BUILD — DO NOT MODIFY THE LEGACY PSAMETRA WEBSITE.** Modify only this workspace.
+- `E:\psametra-website`, `E:\LogisticSoftware` and their repositories are read-only references. Do not replace, port or redesign the corporate site.
+- Saad explicitly authorized the initial GitHub push and RMS Vercel production deployment; both are complete. On 2026-09-16 he authorized committing/pushing the reviewed premium upgrade (“push it”). This latest request covers GitHub publication; no new Vercel deployment is part of this push.
+- Preserve all user media/reference assets. No casual recompression, replacement, copying of legacy architecture, or competing handoff files.
+- Inspect repository `AGENTS.md` and relevant `node_modules/next/dist/docs/` guides before code changes. Review worker diffs and run checks independently.
+- One explicit legacy-motion exception: after the truck film reaches the grille, rotate the Psametra mark 90°, then move its upper half up and lower half down. Read-only reference: legacy `src/components/navigation/transition-provider.tsx` and `transition.css`. This is already recreated with native CSS/browser motion.
+
+## Product and truth rules
+A logistics-first sales demo showing how Psametra can connect a freight company's public site and customer software. Preserve depth; do not turn it into a shallow landing page.
+- Fictional/demo shipments, quotes, documents and actions must remain contextually labelled. No live carrier, GPS, booking, payment, email submission, authentication or database is implied.
+- Public tracking presents customer-safe fields/documents; prices/invoices and internal operational context belong in the clearly fictional portal/control tower.
+- Do not invent clients, testimonials, fleet/offices, freight operations, credentials, partnerships, years, volumes, performance or sustainability claims.
+- Distinguish sample freight inquiry/tracking from the real commercial action: talk to Psametra about building this for a logistics business.
+- Verified commercial contact: `rmspvtltd.software@gmail.com`; corporate bridge: https://psametra-website.vercel.app/. No invented phone/address.
+- Keep intentional demo `noindex` and robots disallow. All transactions are local fictional state; maps are illustrative, not navigation/GPS.
+
+## Architecture and working behavior
+Next 16.3.5, React 19.3.0, TypeScript; custom tokenized CSS, self-hosted Inter, native rAF/CSS motion. No animation or UI framework required.
+- `src/app/`: eight routes, metadata and static assets; server/static-first pages.
+- `src/components/`: header/footer, map, shipment detail, documents and icons.
+- `src/features/`: hero, journey, tracking, quote, portal, control tower.
+- `src/styles/globals.css` / `pages.css`, plus `features/portal/portal.css`: one existing styling system. Read it before changing it.
+- `src/data/demo.ts`: canonical typed fictional customers, shipments, quotes, documents, events and services. All views reuse these records.
+- Shipment IDs: `PSX-260914-001` air Lahore→Dubai / in transit; `PSX-260907-002` sea Karachi→Rotterdam / at risk; `PSX-260910-003` road Lahore→Karachi / delivered; `PSX-260914-004` road Sialkot→Lahore / on hold.
+- Tracking is URL-driven, including Back/same-route changes. Quote has four validated steps, back/review/completion/local download; dates follow the visitor's calendar. Portal has shipment search/filters/detail, quotes/acceptance, documents/invoices and activity. Platform prioritizes holds/exceptions/next actions.
+- Hero: 260vh desktop scrub, decoded final frame before cover, rotation then split, reverse-scroll restoration and focus/inert management. Desktop eligibility: ≥1024px, fine pointer, no reduced motion or save-data. Poster/normal-flow fallback for mobile, reduced motion, save-data, failed video and no script. CSS reserves desktop height before hydration to avoid CLS.
+- Maps use Natural Earth projection, route geometry and zoom for short routes; sea waypoints pass Suez/Gibraltar/Channel. Coastline simplification affects narrow gulfs/canal/port approaches. Milestone timestamps include UTC.
+- Metadata: `SITE_URL` → `VERCEL_PROJECT_PRODUCTION_URL` → localhost fallback; live OG host verified. Security headers: nosniff, referrer policy, SAMEORIGIN, camera/mic/geolocation disabled.
+
+## Premium-upgrade scope
+Evolve charcoal/off-white/cobalt, technical metadata and freight imagery into stronger industrial editorial design. Preserve coherent UI and logistics-first identity. Remove weak repetitions before adding decoration.
+- Typography: audit display vs operational hierarchy, widths, sizes/weights, labels, timestamps, tables and forms. Another font is optional, only if useful, licensed/self-hosted and lightweight.
+- Composition: address repetitive bordered white panels; vary spacing, image crops, density, asymmetry and dark/light pacing purposefully. Avoid generic SaaS/shadcn grids, giant radii, glass, glows, purple gradients, decorative counters or text animation.
+- Motion/micro-interactions: default/hover/active/focus/pressed/disabled/selected/error/success states; native CSS/Web APIs, reduced-motion first. No blanket parallax, motion library or new dependencies without a concrete need.
+- Preserve the homepage story: physical freight → services → connected journey → physical/digital handoff → tracking → exceptions → customer workspace → real Psametra conversion.
+
+### Before assessment and completed page changes
+The baseline had substantial working flows, but utility pages led with oversized marketing introductions, maps dominated shipment detail, some metadata was too small, and repeated panels weakened hierarchy. The mobile/short-screen defects below were separate functional issues.
+
+| Surface | Local upgrade delivered |
+| --- | --- |
+| Header / hero | Sun/moon theme control; desktop quote path; responsive navigation fixes; short-screen CTAs; fitted/centered mark before the original 90° rotation and split. |
+| Home | Connected journey now pairs its six phases with canonical sea-shipment/quote/document context instead of a decorative large number. Digital preview exposes route and ETA; shared shipment preview prioritizes facts before map. |
+| Services | Indexed freight imagery, mode-specific sample routes linked to tracking, alternating image/copy layouts retained; first in-view aircraft image loads eagerly. |
+| Track | Smaller utility introduction; larger search label/sample touch targets; route/status/current/next/ETA grouped before or beside the map; more legible milestones and timestamps. |
+| Quote | Smaller introduction, clear square progress markers, native radio choices with mode icons, larger labels/fields, local inquiry outline, shorter mobile progress header. Existing four-step validation/review/download preserved. |
+| Platform | Queue rows expose real sample next actions, mode and ETA; selected detail puts exception/action before map; better queue/detail proportions and tested filters. |
+| Portal | Denser rows and heading, wider search, two-column desktop summary/map, compact mobile rows, larger document/dialog controls; quotes/documents/activity preserved. |
+| About | Captioned freight image and direct business-conversation CTA; factual editorial explanation retained. |
+| Contact | Dedicated email action, useful conversation prompts and a distinct demo inquiry path; native mailto, no fake backend. |
+
+Shared system: one Inter family retained; display typography separated from 11–14px operational labels, 16px mobile form inputs; existing grid and tokens extended for off-white/charcoal themes, maps, errors, status and selected states. Restrained hover/pressed/arrow feedback respects reduced motion. No dependencies, fonts or media added; original optimized film hash verified unchanged.
+
+## Audit and execution plan — completed for this review candidate
+1. **Baseline:** read source/CSS/media and latest request; preserve current diffs. Classify genuine defects separately from stale local server/build failures.
+2. **Audit:** inspect all eight routes desktop/mobile plus tablet, interact with every existing flow/control. Inspect UTF-8 source for actual corruption rather than trusting terminal rendering. Record reproduced findings and evidence here.
+3. **Prioritize:** fix reproduced functional/responsive/accessibility problems first, then shared type/grid/states, then page-specific composition. Keep changes reviewable; no whole-app rewrite.
+4. **Upgrade locally:** preserve shared data, validation, accessibility, film and all product functions. Do not weaken tests to fit changes.
+5. **Verify:** lint/typecheck/test/build; start that exact fresh production build; browser/axe checks and screenshots. Re-run Lighthouse only after visual changes stabilize.
+6. **Handoff:** update this brief with actual findings, decisions, changed files, exact checks/results, remaining limitations and Git state. Final upgrade report must include before assessment, system/page changes, bug-vs-stale findings, performance/a11y impact and visual coverage. Report upgrade publication state accurately.
+
+Required audit sizes: 1920×1080, 1440×900, 1366×768; tablet 1024 and 768; mobile 430/390/360; also ultra-wide and short laptop. Check overflow/clipping, navigation/touch targets and intermediate type sizes.
+Hero checks include first paint, scrub/end-frame/reverse, crop, CTA, height changes, reduced motion/save-data/mobile/video failure. Do not claim measured 60fps or real-device smoothness from browser seeks.
+
+## Verified baseline / QA evidence
+- Fresh Vercel build passed. Live production: **34/34 browser checks**, no unexpected browser errors; **16/16 tests, zero skips**, including live portal/tracking regressions.
+- The earlier local audit reported 1928px overflow at 1440, menu interception, hero seek/fallback failures, and CSS chunk MIME `text/plain` errors. Those failures did **not** reproduce against the newly built release. Stale local output/server mismatch is plausible, not yet proven as the exact cause; don't treat old screenshots as current failures.
+- Previous local lint/typecheck/build passed; axe WCAG 2/2.1 A/AA **20/20 page/viewport scans**.
+- Lighthouse 13 / Chrome 153 local production: desktop P100/A100/BP100/SEO66, LCP0.7s/CLS0; mobile P92/A100/BP100/SEO66, LCP3.4s/CLS0. SEO reflects intentional noindex. Lab data, not field/real-device claims. Valid reports have runtimeError null; Windows profile cleanup EPERM happened after report generation.
+- QA output ignored under `test-results/`; current reports now record fresh local production at `http://127.0.0.1:3001`. `failure-*.png` may be stale; use timestamps/report provenance. Scripts: `scripts/browser-check.mjs`, `scripts/accessibility-check.mjs`.
+- No API/backend is expected; don't inspect credentials or add logging/services for nonexistent integrations.
+
+## Commands / environment
+PowerShell; Node 24.15.0/npm11.12.1; installed Chrome `C:\Program Files\Google\Chrome\Application\chrome.exe`.
+```powershell
+npm ci
+npm run lint
+npm run typecheck
+npm run build
+npm run start -- --port 3001
+# In another terminal, against that exact build:
+$env:BASE_URL='http://127.0.0.1:3001'
+$env:PORTAL_TEST_URL=$env:BASE_URL
+npm run test:browser
+npm test
+node scripts/accessibility-check.mjs
+```
+Dev: `npm run dev` (127.0.0.1:3000). Processes may end on user messages; verify/restart. Stop only this repo's stale server; delete only verified generated output if necessary. Never mix a running stale server with a rebuilt `.next`.
+Lighthouse: `node node_modules/lighthouse/cli/index.js URL --preset=desktop --chrome-flags='--headless' --output=json --output=html --output-path=./test-results/lighthouse-desktop --only-categories=performance,accessibility,best-practices,seo --quiet`; omit preset for mobile. Set `CHROME_PATH`; approved escalation may be needed for Chrome/Git/network.
+
+## Deployment checkpoint
+- RMS account: `rmspvtltdsoftware-4375`; team `rmspvtltdsoftware-4375s-projects` / `team_K7mVodqcY51jB9vLxTygtBRm`.
+- **Logistics project:** `prj_VTQINeiuw7EOLltnZUmGvBkL4spB`. Verify ignored `.vercel/project.json` before future deployment.
+- **Never target corporate:** `psametra-website` / `prj_uegLEQdah5M3SMVjidjqqoPChpeK`.
+- Live deployment: `dpl_CCWwDERteRnuwjADcPTvUwqKgtLk`, READY/production, app source `397128d`.
+- Immutable: https://psametra-logistics-oahpcbw6b-rmspvtltdsoftware-4375s-projects.vercel.app
+- Inspector: https://vercel.com/rmspvtltdsoftware-4375s-projects/psametra-logistics/CCWwDERteRnuwjADcPTvUwqKgtLk
+- CLI59.17.0 is authenticated. Vercel connector disappeared; CLI was the successful release route.
+- Git branch is pushed, but Hobby rejects automatic linking of private organization GitHub repos (409). No plan/visibility change made. Future authorized releases: `npx --yes vercel@59.17.0 deploy --prod --yes --scope rmspvtltdsoftware-4375s-projects`.
+- `.vercelignore` excludes references, tests, docs, scripts, QA and temporary audit reports. Keep `.env.local` and `.vercel/` ignored; never commit credentials.
+
+## Media / evidence — preserve
+- Runtime `public/media/freight-film.mp4` matches `reference/hero/psametra-logistics-hero-web-1080p-g12.mp4` byte-for-byte: 1920×1080 H.264,24fps,10s,5,911,091bytes,20keyframes at0.5s,no audio. SHA256 `1F2ABF4A90B31FA741C2DFB8419CA1904ACA1A5C3C5A02FBAF9586B16010B2A2`.
+- Approved TensorPix references: 4K master17,586,188bytes SHA256 `0D6A9F37186A7A1BDE1662D12A59668FE2A93846906953816D1251BF8ECCFB89`; 1080p source6,871,038bytes SHA256 `6A1352A63FA4A46AA1BD85B9E44348609E66C557A17C40B684ADCDEF7F3D4EEA`. Both24fps/10s/AAC/one video keyframe. Runtime GOP-12 derivative came from approved free browser ffmpeg-webCLI workflow.
+- Poster/brand assets under `public/` and `reference/`; Inter OFL retained. No new media generation needed for audit.
+- Air image: nrd, https://unsplash.com/photos/white-plane-releasing-cargo-Woev36hRtIQ (Unsplash License).
+- Sea image: Pankaj Mishra, https://www.pexels.com/photo/cargo-containers-in-a-ship-11825325/ (Pexels license). Images are generic freight, not company assets.
+- Map: Natural Earth public-domain1:110m, https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson; generated by `scripts/prepare-map.mjs` from ignored QA JSON.
+- Prior benchmarks already researched: Einride physical/software story; Flexport control tower; Kuehne+Nagel myKN quote/track/documents. Screenshots in `reference/research/`. Forto403 was not evidence; no need to repeat broad research.
+- Read-only RMS audit previously found inquiry/rates/quotes/invoices/control-tower/documents/portal/public tracking flows (air413 backend tests, sea49; air frontend build). These inform design, not claims about this demo's backend.
+
+## Current audit findings
+### Completed locally
+- Header sun/moon theme control: follows system initially, saves manual choice, applies before paint, survives navigation/reload, works with blocked storage. Both themes cover forms, maps, portal, status/error/selected states. No dependency added; static rendering preserved.
+- Reproduced and fixed: hidden hero CTAs on short screens; mobile menu remaining open after desktop resize; unreachable landscape menu actions; cropped grille mark at 2560×720; accepted long quote origin overflowing completion; keyboard focus lost after sample quote acceptance; misleading pending-document copy.
+- Hero cover now centers/fits the mark before rotation/split. Original video, frame matching and reduced-motion/fallback behavior preserved.
+- Strict UTF-8 audit of 29 source files found no corruption. No blind character replacements made.
+- Changed files: app layout/home/services/track/quote/about/contact pages; header and new theme-toggle; shared shipment-detail/map/document-list; hero/journey/platform/portal/quote features; globals.css/pages.css/portal.css; new experience tests, portal tests, browser/accessibility scripts; this brief and the preserved request. `package.json`, lockfile, canonical data and media are unchanged. Full exact list: `git status --short`.
+
+### Fresh verification checkpoint
+- `npm run lint`, `npm run typecheck`, `npm run build`: passed. Exact fresh production then passed **21/21 tests (zero skips)**, **35/35 browser checks**, **40/40 axe scans** (10 route/tab views × desktop/mobile × light/dark).
+- Layout sweep: **160/160** (8 routes × 10 required sizes × 2 themes), zero horizontal overflow, page/console errors or CSS response failures. Evidence: `test-results/premium-audit/layout-report.json` and adjacent screenshots; exploratory runner `test-results/premium-layout-check.mjs`.
+- Regression tests cover theme persistence/storage denial, landscape/resize navigation, short/ultrawide hero, long quote text and keyboard acceptance focus. Initial failing assertions reproduced the real defects before the fixes.
+- Production server was started on port3001. Verify it is alive before reuse. Rebuild/restart together after further edits; never test an old server against replaced `.next` output.
+- Final Lighthouse 13 / Chrome 153: desktop **P100/A100/BP100/SEO66**, LCP0.7s, CLS0, TBT0ms; mobile **P91/A100/BP100/SEO66**, LCP3.5s, CLS0, TBT20ms. Initial mobile was P92/LCP3.4s; this small single-run difference is not proof of a trend. Reports: `test-results/premium-lighthouse-{desktop,mobile}.report.{json,html}`. Both have `runtimeError:null`; CLI exit1 came from Windows temporary Chrome-profile cleanup EPERM after valid reports were written. No real-device frame-rate claim.
+
+### Visual review and final state
+- Inspected all eight routes in desktop/mobile captures and tablet snapshots, both themes across the suite; reviewed the revised home journey/digital sections, short-screen navigation/hero and 2560×720 rotating mark. Final screenshots: `test-results/premium-audit/`; browser flow captures: `test-results/`. Automated layout sizes: 1920×1080,1440×900,1366×768,1024×768,768×1024,430×932,390×844,360×800,2560×720,1280×600.
+- Final local production is at http://127.0.0.1:3001 (portal preview requested in the Codex right panel). Theme button is at the header's far right, beside the menu on mobile; initial preference follows the OS and manual choice persists.
+- Independent source/diff review, lint, typecheck, build and `git diff --check` passed. The browser suite now includes control-tower filtering/selected next actions and the journey's canonical sample link. The final 21 tests have zero skips.
+- A light-theme homepage label contrast regression was caught during refinement, fixed by correcting selector specificity, and rechecked in the final 40/40 axe run. Do not confuse the intermediate failing report with final results.
+- Windows sandbox helper later failed with account-lock error1909; approved local command escalations allowed verification to finish. Browser automation plugin could not restart; Playwright screenshots and Chrome checks completed. This is a host/tool limitation, not a website failure.
+
+### What remains
+1. No known reproduced functional defect remains in the audited flows. Any further aesthetic changes should respond to Saad's concrete feedback, not restart the build.
+2. Real iOS/Safari/Android device feel and frame rate have not been measured. Chrome responsive/keyboard/axe coverage is not a claim of universal browser/device certification. Mobile lab LCP3.5s remains a performance opportunity; preserve the approved film when investigating.
+3. Maps remain illustrative Natural Earth approximations; no live GPS/carrier/backend was added. SEO66 reflects intentional noindex. No fonts/dependencies were added and no precise before/after bundle-size claim is made.
+4. GitHub publication of this upgrade is authorized on `codex/logistics-experience`; the initial Vercel release remains live. If a new deployment is requested, verify the reviewed Git revision and target only the logistics RMS project documented above. Hobby does not automatically deploy this private organization repository from a Git push.
+
+**PREMIUM UPGRADE — GITHUB PUBLICATION AUTHORIZED / VERCEL UNCHANGED**

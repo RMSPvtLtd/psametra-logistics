@@ -383,6 +383,26 @@ try {
     return { phases: ['film', 'cover', 'rotate', 'split', 'destination', 'reverse'], finalDecodedTime: coverFrames[0].time };
   });
 
+  await check('platform-filters-and-next-actions', page, async () => {
+    await visit(page, '/platform');
+    const filters = page.getByRole('group', { name: 'Filter operations queue' });
+    assert.equal(await page.locator('.tower-shipment').count(), 2);
+    for (const [label, reference, heading] of [
+      ['On hold', 'PSX-260914-004', 'Packing list required'],
+      ['At risk', 'PSX-260907-002', 'Arrival window revised'],
+      ['In transit', 'PSX-260914-001', 'Arrival at DXB'],
+    ]) {
+      await filters.getByRole('button', { name: new RegExp('^' + label) }).click();
+      assert.equal(await page.locator('.tower-shipment').count(), 1);
+      await page.locator('.tower-detail').getByRole('heading', { name: heading, exact: true }).waitFor();
+      assert.equal(await page.getByRole('link', { name: 'View customer-safe update' }).getAttribute('href'), '/track?ref=' + reference);
+    }
+    await filters.getByRole('button', { name: /Needs attention/ }).click();
+    assert.equal(await page.locator('.tower-shipment').count(), 2);
+    await page.locator('.tower-shipment').last().click();
+    await page.locator('.tower-detail').getByRole('heading', { name: 'Packing list required' }).waitFor();
+  });
+
   await check('homepage-connected-journey', page, async () => {
     await visit(page, '/');
     const journey = page.getByRole('group', { name: 'Explore the freight journey' });
@@ -390,6 +410,9 @@ try {
     await showHeading(page, 'An exception deserves a next step.');
     assert.equal(await journey.getByRole('button', { name: /Resolve/ }).getAttribute('aria-pressed'), 'true');
     assert.equal(await page.getByRole('link', { name: 'Explore the control tower', exact: true }).getAttribute('href'), '/platform');
+    assert.match(await page.locator('.journey-record').innerText(), /Arrival window revised/);
+    await journey.getByRole('button', { name: /Track/ }).click();
+    assert.equal(await page.getByRole('link', { name: 'Follow a sample journey' }).getAttribute('href'), '/track?ref=PSX-260907-002');
     await journey.getByRole('button', { name: /Close/ }).click();
     await showHeading(page, 'Every document. In its place.');
     assert.equal(await page.getByRole('link', { name: 'Open sample documents', exact: true }).getAttribute('href'), '/portal-demo?tab=documents');

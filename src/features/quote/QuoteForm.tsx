@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Icon } from '@/components/icon';
 import { useEffect, useRef, useState, type FormEvent, type InputHTMLAttributes } from 'react';
 import { emptyQuote, incoterms, inquirySummary, localToday, stepFields, validateQuote, type QuoteDraft, type QuoteErrors } from './validation';
 
@@ -76,7 +77,7 @@ export default function QuoteForm() {
     <div className="quote-layout">
       <aside className="quote-sidebar">
         <p className="eyebrow">PLAN YOUR NEXT MOVE</p>
-        <h2>A few details.<br />A clearer starting point.</h2>
+        <h2>Route to review.<br />One clear brief.</h2>
         <ol className="step-list" aria-label="Inquiry progress">
           {steps.map((name, index) => (
             <li key={name} aria-current={!complete && step === index ? 'step' : undefined} className={index < step || complete ? 'is-complete' : step === index ? 'is-current' : ''}>
@@ -84,6 +85,7 @@ export default function QuoteForm() {
             </li>
           ))}
         </ol>
+        {draft.mode && <div className="inquiry-outline"><p className="eyebrow">YOUR INQUIRY / {draft.mode} FREIGHT</p><p>{draft.origin || 'Origin'} <span aria-hidden="true">→</span> {draft.destination || 'Destination'}</p>{draft.cargo && <p className="muted">{draft.cargo}</p>}</div>}
         <p className="muted">An example freight inquiry flow. Your details stay in this page and are cleared when you leave or refresh. No request is sent.</p>
       </aside>
 
@@ -116,6 +118,7 @@ export default function QuoteForm() {
                   {['Air', 'Sea', 'Road'].map((mode) => (
                     <label key={mode} htmlFor={`quote-mode-${mode}`}>
                       <input id={`quote-mode-${mode}`} type="radio" name="mode" value={mode} checked={draft.mode === mode} onChange={(event) => update('mode', event.target.value)} required aria-describedby={errors.mode ? 'quote-error-mode' : undefined} />
+                      <Icon name={mode.toLowerCase() as 'air' | 'sea' | 'road'} size={24} />
                       <span>{mode} freight</span>
                     </label>
                   ))}

@@ -32,12 +32,12 @@ export function RouteMap({ shipment }: { shipment: Shipment }) {
   const top = (Math.min(...ys) + Math.max(...ys) - height) / 2;
   const unit = width / 220;
   return <div className="route-map"><div className="map-topline"><span className="eyebrow">{shipment.mode.toUpperCase()} FREIGHT / ROUTE OVERVIEW</span><span className="map-north">N ↑</span></div><svg viewBox={`${left} ${top} ${width} ${height}`} role="img" aria-label={`Illustrative ${shipment.mode.toLowerCase()} route from ${shipment.origin.city} to ${shipment.destination.city}; ${shipment.status.toLowerCase()}. Not real-time GPS.`}>
-    <defs><pattern id={gridId} width={20 * unit} height={20 * unit} patternUnits="userSpaceOnUse"><path d={`M${20 * unit} 0H0V${20 * unit}`} fill="none" stroke="#c6cdc4" strokeWidth={.3 * unit} /></pattern></defs>
-    <rect x={left} y={top} width={width} height={height} fill="#e9ece5" /><rect x={left} y={top} width={width} height={height} fill={`url(#${gridId})`} />
+    <defs><pattern id={gridId} width={20 * unit} height={20 * unit} patternUnits="userSpaceOnUse"><path d={`M${20 * unit} 0H0V${20 * unit}`} fill="none" stroke="var(--map-line)" strokeWidth={.3 * unit} /></pattern></defs>
+    <rect x={left} y={top} width={width} height={height} fill="var(--map-surface)" /><rect x={left} y={top} width={width} height={height} fill={`url(#${gridId})`} />
     <image href="/media/world.svg" x="0" y="0" width="1000" height="500" />
     <path d={path} fill="none" stroke="#5a6e9c" strokeWidth={.65 * unit} strokeDasharray={`${2 * unit} ${2 * unit}`} />
-    <path d={path} fill="none" stroke="#254dff" strokeWidth={1.2 * unit} pathLength="100" strokeDasharray={`${p * 100} 100`} />
-    {[[x1, y1], [x2, y2]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r={3 * unit} fill="#f7f8f4" stroke="#254dff" strokeWidth={unit} /><text x={x} y={y + 9 * unit} textAnchor="middle" fontSize={5 * unit} fontWeight="600" fill="#252d2d">{i === 0 ? shipment.origin.code : shipment.destination.code}</text></g>)}
-    {p > 0 && p < 1 && <g><circle cx={current[0]} cy={current[1]} r={6 * unit} fill="#254dff" fillOpacity=".13" /><circle cx={current[0]} cy={current[1]} r={2.7 * unit} fill="#254dff" stroke="white" strokeWidth={unit} /></g>}
+    <path d={path} fill="none" stroke="var(--blue)" strokeWidth={1.2 * unit} pathLength="100" strokeDasharray={`${p * 100} 100`} />
+    {[[x1, y1], [x2, y2]].map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r={3 * unit} fill="var(--white)" stroke="var(--blue)" strokeWidth={unit} /><text x={x} y={y + 9 * unit} textAnchor="middle" fontSize={5 * unit} fontWeight="600" fill="var(--ink)">{i === 0 ? shipment.origin.code : shipment.destination.code}</text></g>)}
+    {p > 0 && p < 1 && <g><circle cx={current[0]} cy={current[1]} r={6 * unit} fill="var(--blue)" fillOpacity=".13" /><circle cx={current[0]} cy={current[1]} r={2.7 * unit} fill="var(--blue)" stroke="white" strokeWidth={unit} /></g>}
   </svg><div className="map-bottomline"><span>{shipment.origin.city} <span aria-hidden="true">→</span> {shipment.destination.city}</span><span>ILLUSTRATIVE ROUTE · SAMPLE DATA</span></div></div>;
 }
