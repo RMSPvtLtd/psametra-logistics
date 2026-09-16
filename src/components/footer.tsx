@@ -3,7 +3,7 @@ import { company } from "@/data/demo";
 import { BrandMark, Icon } from "./icon";
 
 export function Conversion() {
-  return <section className="conversion"><div className="container conversion-inner"><div><p className="eyebrow">YOUR BUSINESS. THIS LEVEL OF CLARITY.</p><h2>Make your next move<br />a better experience.</h2></div><div className="conversion-aside"><p>A website that wins confidence.<br />Software that keeps it.<br />Built for your logistics business.</p><Link className="btn btn-white" href="/contact">Talk to Psametra <Icon name="diagonal" /></Link></div></div></section>;
+  return <section className="conversion"><div className="container conversion-inner"><div><p className="eyebrow">YOUR OPERATION. YOUR BRAND. YOUR CUSTOMER JOURNEY.</p><h2>Imagine this built<br />around your business.</h2></div><div className="conversion-aside"><p>A premium public website. Customer tools that actually work. One connected experience shaped around your logistics operation.</p><Link className="btn btn-white" href="/contact">Talk to Psametra <Icon name="diagonal" /></Link></div></div></section>;
 }
 
 export function Footer() {

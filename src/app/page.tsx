@@ -2,25 +2,64 @@ import Image from "next/image";
 import Link from "next/link";
 import { Hero } from "@/features/hero/Hero";
 import { Journey } from "@/features/journey/Journey";
-import { BrandMark, Icon } from "@/components/icon";
+import { Icon } from "@/components/icon";
 import { Conversion } from "@/components/footer";
 import { RouteMap } from "@/components/route-map";
-import { ShipmentDetail, StatusBadge } from "@/components/shipment-detail";
+import { StatusBadge } from "@/components/shipment-detail";
 import { services, shipments, formatDate } from "@/data/demo";
 
-const photos = { air: "/media/air-freight.webp", sea: "/media/sea-freight.jpg", road: "/media/freight-poster.jpg" };
-
 export default function Home() {
-  const featured = shipments[0];
-  const exception = shipments.find(shipment => shipment.status === "At risk")!;
+  const featured = shipments.find(shipment => shipment.status === "At risk")!;
   return <>
     <Hero><div className="container hero-reveal"><p className="eyebrow">FREIGHT IS ONLY PART OF THE JOURNEY.</p><h2>Everything moving.<br />Everything connected.</h2><p>A quote, a handover, a change of plan. Bring every step into one clear view.</p><div className="utility-strip"><Link href="/track"><span className="eyebrow">01 / STAY INFORMED</span><strong>Track a shipment</strong><Icon name="diagonal" size={23} /></Link><Link href="/quote"><span className="eyebrow">02 / PLAN AHEAD</span><strong>Get a freight quote</strong><Icon name="diagonal" size={23} /></Link><Link href="/portal-demo"><span className="eyebrow">03 / TAKE CONTROL</span><strong>Your customer portal</strong><Icon name="diagonal" size={23} /></Link></div></div></Hero>
-    <section className="container section" id="connected"><div className="section-heading"><div><p className="eyebrow">01 / FREIGHT WITHOUT THE FRAGMENTATION</p><h2>The right move.<br />For every mode.</h2></div><p>Across the air, over the sea or along the road. A connected experience, from the first inquiry to the final mile.</p></div><div className="service-grid">{services.map(service => <Link className="service-tile" key={service.id} href={`/services#${service.id}`}><div className="service-photo"><Image src={photos[service.id]} alt={service.id === "air" ? "Aircraft hold being loaded on an airport apron" : service.id === "sea" ? "Container vessel looking out over the open sea" : "Psametra concept truck in a logistics yard"} fill sizes="(max-width:767px) 90vw, 30vw" /><span>{service.name}<Icon name="diagonal" size={25} /></span></div><div className="service-description"><p>{service.description}</p><span className="eyebrow">{service.eyebrow.split(" / ")[0]}</span></div></Link>)}</div></section>
-    <section className="container section journey-section"><div className="section-heading"><div><p className="eyebrow">02 / THE CONNECTED JOURNEY</p><h2>One shipment.<br />No missing chapters.</h2></div><p>The work between departure and arrival matters just as much as the movement. Follow each step.</p></div><Journey /></section>
-    <section className="section digital-section"><div className="container"><div className="section-heading"><div><p className="eyebrow">03 / PHYSICAL FREIGHT → DIGITAL CONTROL</p><h2>On the ground.<br />On your screen.</h2></div><p>Every movement leaves a signal. Turn it into a clear status, a useful update and an informed next step.</p></div><div className="digital-window"><div className="window-topline"><span className="window-label"><BrandMark /> PSAMETRA / CONNECT</span><span className="eyebrow">PLATFORM PREVIEW · SAMPLE DATA</span></div><div className="window-body"><div className="window-physical"><Image src="/media/freight-poster.jpg" alt="Truck at the start of a connected freight journey" fill sizes="(max-width:767px) 90vw, 43vw" /><div><p className="eyebrow">THE PHYSICAL WORLD</p><h3>Real movement.<br />Meaningful information.</h3></div></div><div className="window-digital"><div className="shipment-heading"><div><p className="eyebrow">THE CUSTOMER VIEW</p><h3 className="shipment-id">{featured.id}</h3></div><StatusBadge status={featured.status} /></div><div className="digital-route"><strong>{featured.origin.city} → {featured.destination.city}</strong><span>EST. ARRIVAL / {formatDate(featured.eta)}</span></div><RouteMap shipment={featured} /><div className="digital-summary"><p><span>Current milestone</span>{featured.currentMilestone}</p><p><span>Up next</span>{featured.nextMilestone}</p></div></div></div><div className="digital-bottom"><p>Milestones, exceptions and documents. Connected by one reference.</p><Link className="text-link" href="/platform">Explore the platform <Icon name="arrow" /></Link></div></div></div></section>
-    <section className="container section tracking-preview"><div className="tracking-preview-copy"><p className="eyebrow">04 / VISIBILITY THAT MEANS SOMETHING</p><h2>More than a pin.<br />A clearer picture.</h2><p>Know what happened, where things stand and what comes next. Follow a sample shipment all the way through its journey.</p><Link className="text-link" href={`/track?ref=${featured.id}`}>Explore shipment tracking <Icon name="arrow" /></Link><Link className="preview-reference" href={`/track?ref=${featured.id}`}><div><p className="eyebrow">TRY THIS DEMO REFERENCE</p><span>{featured.id}</span></div><Icon name="diagonal" /></Link><p className="page-note">Illustrative shipment · {formatDate(featured.updatedAt)} snapshot</p></div><ShipmentDetail shipment={featured} compact showDocuments={false} /></section>
-    <section className="container section exception-section"><div className="exception-feature"><div><aside className="exception-notice"><Icon name="alert" /><div><p className="eyebrow">{exception.id}</p><h3>{exception.exception!.title}</h3><p>{exception.exception!.message}</p><p><strong>Next action:</strong> {exception.exception!.nextAction}</p></div></aside><RouteMap shipment={exception} /></div><div className="exception-copy"><p className="eyebrow">05 / WHEN THE PLAN CHANGES</p><h2>See the exception.<br />Know the next move.</h2><p>A revised arrival window shouldn’t become a guessing game. A clear update connects the change to the shipment and the next action.</p><Link className="text-link" href={`/track?ref=${exception.id}`}>See this shipment update <Icon name="arrow" /></Link></div></div></section>
-    <section className="container section portal-preview"><div className="section-heading"><div><p className="eyebrow">06 / YOUR FREIGHT, TOGETHER</p><h2>A workspace.<br />Built around the journey.</h2></div><Link className="text-link" href="/portal-demo">Open the customer portal <Icon name="arrow" /></Link></div><div className="portal-preview-table"><div className="preview-row preview-table-head"><span>SHIPMENT REFERENCE</span><span>ROUTE</span><span>MODE</span><span>STATUS</span><span /></div>{shipments.slice(0, 3).map(shipment => <Link href={`/track?ref=${shipment.id}`} className="preview-row" key={shipment.id}><span className="mono">{shipment.id}</span><span>{shipment.origin.city} <span aria-hidden="true">→</span> {shipment.destination.city}</span><small>{shipment.mode}</small><StatusBadge status={shipment.status} /><Icon name="diagonal" size={18} /></Link>)}</div><p className="page-note">Sample customer workspace. Shipments, quotes, documents and invoices share the same journey.</p></section>
+    <section className="container home-freight" id="connected" aria-labelledby="freight-heading">
+      <div className="home-freight-copy">
+        <p className="eyebrow">Across air, sea and road</p>
+        <h2 id="freight-heading">Freight beyond<br />the first mile.</h2>
+        <p>From an urgent departure to the final handover. Explore the routes, services and information that connect a shipment.</p>
+        <div className="home-modes">{services.map(service => <Link key={service.id} href={`/services#${service.id}`}>
+          <div><h3>{service.name}</h3><p>{service.description}</p></div><Icon name="diagonal" size={22} />
+        </Link>)}</div>
+      </div>
+      <figure className="home-freight-figure">
+        <div className="home-freight-image"><Image src="/media/sea-freight.jpg" alt="Container ship crossing open water" fill sizes="(max-width:767px) 100vw, 50vw" /><span className="home-freight-image-label" aria-hidden="true">SEA FREIGHT / GLOBAL MOVEMENT</span></div>
+        <figcaption>Every departure is part of a longer journey.</figcaption>
+      </figure>
+    </section>
+    <section className="container home-journey" aria-labelledby="journey-heading">
+      <div className="home-section-heading"><p className="eyebrow">The connected journey</p><div><h2 id="journey-heading">From the first inquiry<br />to the final document.</h2><p>Six connected steps. Explore the decisions and handovers behind each movement.</p></div></div>
+      <Journey />
+    </section>
+    <section className="home-product" aria-labelledby="product-heading"><div className="container">
+      <div className="home-section-heading"><p className="eyebrow">Physical freight. Digital control.</p><div><h2 id="product-heading">The whole picture.<br />One place to look.</h2><p>Follow a shipment, understand a change of plan, and find the next action. A connected view for customers and operations.</p></div></div>
+      <div className="home-shipment">
+        <div className="home-shipment-summary">
+          <p className="eyebrow">Sample shipment · {featured.mode} freight</p>
+          <h3>{featured.origin.city}<span aria-hidden="true">↓</span><span className="visually-hidden"> to </span>{featured.destination.city}</h3>
+          <div className="home-shipment-reference"><span className="mono">{featured.id}</span><StatusBadge status={featured.status} /></div>
+          <dl><div><dt>Current milestone</dt><dd>{featured.currentMilestone}</dd></div><div><dt>Estimated arrival</dt><dd>{formatDate(featured.eta)}</dd></div><div><dt>Next handover</dt><dd>{featured.nextMilestone}</dd></div></dl>
+          <Link className="text-link" href={`/track?ref=${featured.id}`}>Follow this shipment <Icon name="arrow" /></Link>
+        </div>
+        <div className="home-shipment-map"><RouteMap shipment={featured} /><p className="page-note">Fictional shipment · {formatDate(featured.updatedAt)} snapshot</p></div>
+      </div>
+      <div className="home-shipment-update"><Icon name="alert" size={22} /><div><h3>{featured.exception!.title}</h3><p>{featured.exception!.message}</p><p><strong>Next action:</strong> {featured.exception!.nextAction}</p></div><Link className="text-link" href="/platform">Manage exceptions <Icon name="arrow" /></Link></div>
+      <div className="home-workspace"><p>Keep the rest of the journey together.<span>Shipments, quotes, documents and invoices in one customer workspace.</span></p><Link className="text-link" href="/portal-demo">Open the customer portal <Icon name="arrow" /></Link></div>
+    </div></section>
+    <section className="experience-proof" aria-labelledby="experience-proof-heading">
+      <div className="container experience-proof-inner">
+        <div className="experience-proof-copy">
+          <p className="eyebrow">A working experience</p>
+          <h2 id="experience-proof-heading">See the system.<br />Not just the surface.</h2>
+          <p>Track a shipment, build an inquiry, open the customer workspace and switch to the operations view. Each path belongs to the same fictional freight journey.</p>
+        </div>
+        <div className="experience-proof-links">
+          <Link href={`/track?ref=${featured.id}`}><span className="mono">01</span><span><strong>Shipment tracking</strong><small>Status, milestones and exceptions.</small></span><Icon name="diagonal" size={20} /></Link>
+          <Link href="/quote"><span className="mono">02</span><span><strong>Freight inquiry</strong><small>A complete route-to-review flow.</small></span><Icon name="diagonal" size={20} /></Link>
+          <Link href="/portal-demo"><span className="mono">03</span><span><strong>Customer workspace</strong><small>Shipments, quotes and documents together.</small></span><Icon name="diagonal" size={20} /></Link>
+          <Link href="/platform"><span className="mono">04</span><span><strong>Operations view</strong><small>Exceptions and next actions first.</small></span><Icon name="diagonal" size={20} /></Link>
+        </div>
+      </div>
+    </section>
     <Conversion />
   </>;
 }

@@ -16,22 +16,45 @@ const imagery = {
 };
 
 export default function ServicesPage() {
-  return <div className="container page-body">
-    <section className="page-intro page-intro-split">
-      <div><p className="eyebrow">AIR / SEA / ROAD</p><h1>Different routes.<br />One clear journey.</h1></div>
-      <p>Explore how each freight mode connects cargo, handovers and information. Example service experiences for a logistics business.</p>
+  return <div className="container page-body services-page">
+    <section className="services-intro">
+      <p className="eyebrow">Freight services</p>
+      <div className="services-intro-copy">
+        <h1>Air. Sea. Road.</h1>
+        <p>Explore how each freight mode connects cargo, handovers and information. Example service experiences for a logistics business.</p>
+      </div>
+      <nav className="services-nav" aria-label="Freight modes">
+        {services.map((service) => <a key={service.id} href={`#${service.id}`}>{service.name}</a>)}
+      </nav>
     </section>
     <div className="services-page-list">
-      {services.map((service, index) => <section id={service.id} className="service-detail" key={service.id}>
-        <div className="service-detail-visual"><div className="service-detail-image"><Image src={imagery[service.id].src} alt={imagery[service.id].alt} fill loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 767px) 100vw, 50vw" /><span className="service-image-index" aria-hidden="true">0{index + 1} / {service.id.toUpperCase()}</span></div><Link className="service-route-caption" href={`/track?ref=${shipments[index].id}`}><span><span className="eyebrow">EXPLORE A SAMPLE MOVEMENT</span><strong>{shipments[index].origin.city} → {shipments[index].destination.city}</strong></span><Icon name="diagonal" size={20} /></Link></div>
-        <div className="service-detail-copy">
-          <p className="eyebrow">{service.eyebrow}</p>
-          <h2>{service.name}</h2>
-          <p>{service.description} {service.detail}</p>
-          <ul>{service.features.map((feature) => <li key={feature}><Icon name="check" size={16} />{feature}</li>)}</ul>
-          <Link className="text-link" href="/quote">Plan a {service.id} freight inquiry <Icon name="diagonal" size={18} /></Link>
-        </div>
-      </section>)}
+      {services.map((service, index) => {
+        const sample = shipments.find((shipment) => shipment.mode.toLowerCase() === service.id);
+        return <section id={service.id} className="service-detail" key={service.id} aria-labelledby={`${service.id}-heading`}>
+          <div className="service-detail-heading">
+            <h2 id={`${service.id}-heading`}>{service.name}</h2>
+            <p className="eyebrow">{service.eyebrow}</p>
+          </div>
+          <div className="service-detail-image">
+            <Image src={imagery[service.id].src} alt={imagery[service.id].alt} fill loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 488px) calc(100vw - 44px), (max-width: 1600px) 91vw, 1456px" />
+            <span className="service-image-meta" aria-hidden="true"><span>0{index + 1}</span><span>{service.id.toUpperCase()} / FREIGHT EXPERIENCE</span></span>
+          </div>
+          <div className="service-detail-body">
+            <div className="service-detail-copy">
+              <p className="service-detail-lead">{service.description}</p>
+              <p>{service.detail}</p>
+              <Link className="text-link" href="/quote">Plan your {service.id} shipment <Icon name="diagonal" size={18} /></Link>
+            </div>
+            <div className="service-detail-facts">
+              <ul>{service.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+              {sample && <Link className="service-route-caption" href={`/track?ref=${sample.id}`}>
+                <span><span className="eyebrow">Sample movement</span><strong>{sample.origin.city} → {sample.destination.city}</strong></span>
+                <Icon name="diagonal" size={20} />
+              </Link>}
+            </div>
+          </div>
+        </section>;
+      })}
     </div>
     <div className="supporting-services">
       <section><h3>Clearance has a place in the journey.</h3><p>Required documents, clearance milestones and outstanding actions can sit alongside the shipment they belong to.</p></section>
