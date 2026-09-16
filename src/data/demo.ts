@@ -35,7 +35,7 @@ export type Quote = {
 };
 
 export const demoDate = '2026-09-14';
-export const company = { name: 'Psametra', email: 'rmspvtltd.software@gmail.com', website: 'https://psametra-website.vercel.app/' };
+export const company = { name: 'psametra', email: 'rmspvtltd.software@gmail.com', website: 'https://psametra-website.vercel.app/' };
 export const customers: Customer[] = [{ id: 'customer-meridian', name: 'Meridian Components', initials: 'MC' }];
 
 const lahore: Location = { city: 'Lahore', code: 'LHE', country: 'Pakistan', coordinates: [74.36, 31.52] };

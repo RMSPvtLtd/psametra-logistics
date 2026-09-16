@@ -8,10 +8,10 @@ const inter = localFont({ src: "../../node_modules/@fontsource-variable/inter/fi
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000')),
-  title: { default: "Psametra Logistics — Freight, in full view.", template: "%s | Psametra Logistics" },
-  description: "Explore a connected freight experience: quote, track, manage documents and see every shipment clearly. A logistics website and software concept by Psametra.",
+  title: { default: "psametra Logistics — Freight, in full view.", template: "%s | psametra Logistics" },
+  description: "Explore a connected freight experience: quote, track, manage documents and see every shipment clearly. A logistics website and software concept by psametra.",
   robots: { index: false, follow: false },
-  openGraph: { title: "Psametra Logistics — Freight, in full view.", description: "Physical freight. Digital control. A logistics experience by Psametra.", type: "website", locale: "en_GB", siteName: "Psametra Logistics" },
+  openGraph: { title: "psametra Logistics — Freight, in full view.", description: "Physical freight. Digital control. A logistics experience by psametra.", type: "website", locale: "en_GB", siteName: "psametra Logistics" },
   twitter: { card: "summary_large_image" },
 };
 

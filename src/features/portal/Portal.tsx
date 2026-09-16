@@ -172,7 +172,7 @@ export function Portal({ initialTab = "Shipments" }: { initialTab?: Section } = 
       <dialog ref={quoteDialog} className="sample-dialog" aria-labelledby={quoteTitleId} onClose={() => setSelectedQuote(null)} onClick={(event) => { if (event.target === event.currentTarget) quoteDialog.current?.close(); }}>
         {selectedQuote && (
           <div className="sample-document">
-            <div className="sample-dialog-top"><span className="eyebrow">PSAMETRA / LOGISTICS</span><button className="dialog-close" type="button" aria-label="Close quote" onClick={() => quoteDialog.current?.close()}>×</button></div>
+            <div className="sample-dialog-top"><span className="eyebrow"><span className="brand-name">psametra</span> / LOGISTICS</span><button className="dialog-close" type="button" aria-label="Close quote" onClick={() => quoteDialog.current?.close()}>×</button></div>
             <p className="document-sample-stamp">Sample quote · {selectedQuote.id}</p>
             <h2 id={quoteTitleId}>{selectedQuote.origin} → {selectedQuote.destination}</h2>
             <p className="sample-document-reference">{selectedQuote.mode} freight · {customer.name}</p>

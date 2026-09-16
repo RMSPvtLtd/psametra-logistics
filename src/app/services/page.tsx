@@ -6,13 +6,13 @@ import { services, shipments } from '@/data/demo';
 
 export const metadata: Metadata = {
   title: 'Freight services',
-  description: 'Explore air, sea and road freight journeys in a connected logistics website concept by Psametra.',
+  description: 'Explore air, sea and road freight journeys in a connected logistics website concept by psametra.',
 };
 
 const imagery = {
   air: { src: '/media/air-freight.webp', alt: 'Cargo aircraft on an airport apron' },
   sea: { src: '/media/sea-freight.jpg', alt: 'Container vessel carrying freight at sea' },
-  road: { src: '/media/freight-poster.jpg', alt: 'Psametra concept truck in a warehouse yard' },
+  road: { src: '/media/freight-poster.jpg', alt: 'psametra concept truck in a warehouse yard' },
 };
 
 export default function ServicesPage() {
@@ -60,6 +60,6 @@ export default function ServicesPage() {
       <section><h3>Clearance has a place in the journey.</h3><p>Required documents, clearance milestones and outstanding actions can sit alongside the shipment they belong to.</p></section>
       <section><h3>Make every handover visible.</h3><p>Collection readiness, warehouse receipt and final delivery can become clear checkpoints for the customer and the operations team.</p></section>
     </div>
-    <p className="page-note">This is a logistics concept by Psametra. The freight services and journeys shown are demonstration content.</p>
+    <p className="page-note">This is a logistics concept by psametra. The freight services and journeys shown are demonstration content.</p>
   </div>;
 }

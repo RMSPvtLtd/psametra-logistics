@@ -3,7 +3,7 @@ import QuoteForm from '@/features/quote/QuoteForm';
 
 export const metadata: Metadata = {
   title: 'Plan a freight inquiry',
-  description: 'Try a four-step freight inquiry: route, cargo, contact and review. Prepare a local sample inquiry in the Psametra logistics demo.',
+  description: 'Try a four-step freight inquiry: route, cargo, contact and review. Prepare a local sample inquiry in the psametra logistics demo.',
 };
 
 export default function QuotePage() {

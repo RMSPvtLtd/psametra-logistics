@@ -4,7 +4,7 @@ import { Tracking } from '@/features/tracking/Tracking';
 
 export const metadata: Metadata = {
   title: 'Track a shipment',
-  description: 'Follow a sample shipment from departure to arrival, with milestones, documents and clear customer updates in the Psametra logistics demo.',
+  description: 'Follow a sample shipment from departure to arrival, with milestones, documents and clear customer updates in the psametra logistics demo.',
 };
 
 export default async function TrackPage() {
@@ -15,6 +15,6 @@ export default async function TrackPage() {
       <p>From the latest milestone to the next handover. Enter a sample reference to explore the journey.</p>
     </section>
     <Tracking />
-    <p className="page-note">Sample shipment data · This tracking experience is a demonstration by Psametra.</p>
+    <p className="page-note">Sample shipment data · This tracking experience is a demonstration by psametra.</p>
   </div>;
 }

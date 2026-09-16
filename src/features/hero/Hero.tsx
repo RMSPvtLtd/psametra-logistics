@@ -91,7 +91,7 @@ export function Hero({ children }: { children: ReactNode }) {
   return <section className="hero" ref={section} aria-label="Physical freight, digital control">
     <div className="hero-sticky">
       <div ref={scene} className="hero-scene">
-        <Image className="hero-poster" src="/media/freight-poster.jpg" alt="Psametra concept truck approaching across a rain-soaked logistics yard" fill priority fetchPriority="high" sizes="100vw" />
+        <Image className="hero-poster" src="/media/freight-poster.jpg" alt="psametra concept truck approaching across a rain-soaked logistics yard" fill priority fetchPriority="high" sizes="100vw" />
         <video ref={video} className="hero-video" muted playsInline preload="none" poster="/media/freight-poster.jpg" aria-hidden="true" tabIndex={-1} />
         <div className="hero-shade" />
         <div className="container hero-content"><div className="hero-intro"><p className="eyebrow"><span className="small-cross">+</span> PHYSICAL FREIGHT. DIGITAL CONTROL.</p><h1>Freight,<br />in full view.</h1><p className="hero-description">From first mile to final handover.<br />A clear path for your cargo.</p><div ref={actions} className="hero-actions"><Link className="btn btn-white" href="/quote">Get a quote <Icon name="diagonal" size={18} /></Link><Link className="hero-secondary" href="/track">Track shipment <Icon name="arrow" size={18} /></Link></div></div>

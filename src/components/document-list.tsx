@@ -21,7 +21,7 @@ export function DocumentList({ ids, publicOnly = false }: { ids: string[]; publi
   function downloadSample() {
     if (!selected || !shipment) return;
     const contents = [
-      "PSAMETRA LOGISTICS — SAMPLE DOCUMENT",
+      "psametra LOGISTICS — SAMPLE DOCUMENT",
       "Fictional demonstration data. Not valid for shipping, payment or customs clearance.",
       "",
       selected.name,
@@ -68,7 +68,7 @@ export function DocumentList({ ids, publicOnly = false }: { ids: string[]; publi
         {selected && shipment && (
           <div className="sample-document">
             <div className="sample-dialog-top">
-              <span className="eyebrow">PSAMETRA / LOGISTICS</span>
+              <span className="eyebrow"><span className="brand-name">psametra</span> / LOGISTICS</span>
               <button className="dialog-close" type="button" aria-label="Close document" onClick={() => dialog.current?.close()}>×</button>
             </div>
             <p className="document-sample-stamp">Sample document</p>

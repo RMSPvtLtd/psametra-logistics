@@ -5,7 +5,7 @@ import { Portal } from '@/features/portal/Portal';
 
 export const metadata: Metadata = {
   title: 'Customer portal demo',
-  description: 'Explore sample shipments, quotes, documents and activity in a connected customer workspace. A logistics portal concept by Psametra.',
+  description: 'Explore sample shipments, quotes, documents and activity in a connected customer workspace. A logistics portal concept by psametra.',
 };
 
 export default async function PortalPage({ searchParams }: { searchParams: Promise<{ tab?: string | string[] }> }) {

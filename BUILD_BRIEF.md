@@ -1,5 +1,12 @@
 # Psametra Logistics — build brief
-Updated 2026-09-16. Single plan and handoff; read this before continuing.
+Updated 2026-09-17. Single plan and handoff; read this before continuing.
+
+## Latest release handoff — supersedes historical checkpoints below
+- Saad reported commit `868ba801d659a870d608e19591ab3d1771daa1d9` pushed and deployed, and manually approved the live site. Production alias: https://psametra-logistics.vercel.app/; immutable deployment: https://psametra-logistics-9qfqtalwx-rmspvtltdsoftware-4375s-projects.vercel.app.
+- Direct deployment with Git metadata was rejected on Hobby because the Git author was not the team owner. The approved release method exports the exact committed source without `.git`, links that export to the existing RMS logistics project, then deploys with the authenticated RMS CLI. Do not change Git identity or the corporate website.
+- Current authorized task: lowercase the brand word `psametra` throughout website copy, wordmarks, metadata, accessible labels and downloadable sample text, then commit/push this branch and deploy the logistics project. Preserve the video and logo motion/media. Branded eyebrow labels need an explicit casing override to prevent inherited uppercase styling.
+- The user's latest request explicitly authorizes this release. No deletion of existing deployments is requested. Untracked temporary audit reports remain outside the commit.
+- Lowercase revision checks: lint, typecheck, production build, diff whitespace and 13/13 unit tests passed. Browser checked all eight routes at 390×844 and 1440×900: no mixed/uppercase brand text or horizontal overflow; branded eyebrow computed style is lowercase. Hero video SHA256 remains unchanged. No runtime dependencies or animation behavior changed.
 
 ## Current state
 - **Initial release deployed and verified:** https://psametra-logistics.vercel.app/

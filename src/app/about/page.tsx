@@ -5,13 +5,13 @@ import { Icon } from '@/components/icon';
 
 export const metadata: Metadata = {
   title: 'About this experience',
-  description: 'A logistics website and software concept by Psametra, connecting the public freight experience with shipment visibility and customer workflows.',
+  description: 'A logistics website and software concept by psametra, connecting the public freight experience with shipment visibility and customer workflows.',
 };
 
 export default function AboutPage() {
   return <div className="container">
     <section className="page-intro about-hero">
-      <p className="eyebrow">A LOGISTICS EXPERIENCE BY PSAMETRA</p>
+      <p className="eyebrow">A LOGISTICS EXPERIENCE BY <span className="brand-name">psametra</span></p>
       <h1>Built around<br />the whole journey.</h1>
       <p>Physical freight and digital clarity, brought together in one connected experience.</p>
     </section>
@@ -20,7 +20,7 @@ export default function AboutPage() {
       <div><p className="eyebrow">THE IDEA BEHIND THE EXPERIENCE</p><h2>A clearer view.<br />From first inquiry<br />to final handover.</h2></div>
       <div>
         <p>A logistics website can do more than introduce a service. It can help a customer prepare an inquiry, follow a shipment, understand an exception and find the right document.</p>
-        <p>Psametra created this concept to show those moments working together. Customer records, shipment journeys, quotes and freight documents in the demo are fictional. Psametra builds the website and software experience for a logistics business.</p>
+        <p>psametra created this concept to show those moments working together. Customer records, shipment journeys, quotes and freight documents in the demo are fictional. psametra builds the website and software experience for a logistics business.</p>
         <Link className="text-link" href="/contact">Build this around your business <Icon name="diagonal" size={18} /></Link>
       </div>
     </section>

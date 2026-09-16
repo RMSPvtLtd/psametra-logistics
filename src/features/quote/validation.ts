@@ -58,7 +58,7 @@ export function validateQuote(draft: QuoteDraft, step?: number, today = localTod
 
 export function inquirySummary(draft: QuoteDraft): string {
   return [
-    'PSAMETRA / DEMO FREIGHT INQUIRY',
+    'psametra / DEMO FREIGHT INQUIRY',
     'This inquiry has not been sent. No rate or booking has been created.',
     '',
     `Mode: ${draft.mode}`, `Origin: ${draft.origin.trim()}`, `Destination: ${draft.destination.trim()}`,

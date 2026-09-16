@@ -43,7 +43,7 @@ test('mobile navigation stays reachable in landscape and resets at desktop width
   await page.setViewportSize({ width: 667, height: 375 });
   await page.goto(base! + '/');
   await page.getByRole('button', { name: 'Open navigation' }).click();
-  const contact = page.getByRole('navigation', { name: 'Mobile navigation' }).getByRole('link', { name: 'Contact Psametra' });
+  const contact = page.getByRole('navigation', { name: 'Mobile navigation' }).getByRole('link', { name: 'Contact psametra' });
   await contact.scrollIntoViewIfNeeded();
   const box = await contact.boundingBox();
   assert.ok(box && box.y >= 70 && box.y + box.height <= 375, 'Last menu action must be reachable within the viewport');
