@@ -1,5 +1,11 @@
 # Psametra Logistics — build brief
-Updated 2026-09-17. Single plan and handoff; read this before continuing.
+Updated 2026-09-22. Single plan and handoff; read this before continuing.
+
+## Mobile release checkpoint — 2026-09-22 (supersedes authorization notes below)
+- Saad explicitly authorized pushing mobile fixes and deploying, plus fixing first-load lag. Company name is psametratech; GitHub API still resolves the existing repository to `RMSPvtLtd/psametra-logistics`. The guessed `psametratech/psametra-logistics` URL returned 404. Preserve the verified existing remote unless a new URL is supplied.
+- Reproduced first-load buffering issue in fresh Chromium contexts: original preload-none path buffered only 0–0.443s while idle; preload-auto loaded 0–10s. Set auto only after reduced-motion, save-data and codec checks pass. Original video and logo timeline remain unchanged. This is a browser hint, not a guarantee on all hardware/networks.
+- New cold-load regression failed before the fix and passed after it. Final production build, lint, 27/27 tests (zero skips), 37/37 browser smoke checks, whitespace check and unchanged media SHA256 verified. Independent source review found no blocking issue. Physical iOS/Android testing remains pending.
+- Publishing the five reviewed files on `codex/logistics-experience` using the existing logistics Vercel project and clean Git export method. Temporary audit reports excluded. Deployment result will be recorded below after verification.
 
 ## Latest release handoff — supersedes historical checkpoints below
 - **Current production verified 2026-09-17:** lowercase-brand application commit `3ed721542477a01a13aeb4893a2469cba3bbe71c`, pushed to `codex/logistics-experience`. Vercel deployment `dpl_HYKxUjLRumZ7khiaxmXP9MbqjE8W` is READY/production and aliased to https://psametra-logistics.vercel.app/. Immutable: https://psametra-logistics-ggp2oze41-rmspvtltdsoftware-4375s-projects.vercel.app. Live home/contact branding and metadata checked. Quote/document dialog branding also checked locally; browser warning/error log empty. This handoff-only follow-up does not change the deployed application.
@@ -8,6 +14,86 @@ Updated 2026-09-17. Single plan and handoff; read this before continuing.
 - Current authorized task: lowercase the brand word `psametra` throughout website copy, wordmarks, metadata, accessible labels and downloadable sample text, then commit/push this branch and deploy the logistics project. Preserve the video and logo motion/media. Branded eyebrow labels need an explicit casing override to prevent inherited uppercase styling.
 - The user's latest request explicitly authorizes this release. No deletion of existing deployments is requested. Untracked temporary audit reports remain outside the commit.
 - Lowercase revision checks: lint, typecheck, production build, diff whitespace and 13/13 unit tests passed. Browser checked all eight routes at 390×844 and 1440×900: no mixed/uppercase brand text or horizontal overflow; branded eyebrow computed style is lowercase. Hero video SHA256 remains unchanged. No runtime dependencies or animation behavior changed.
+
+## Mobile and tablet hero implementation plan — 2026-09-17
+
+**Status: implemented locally; physical-device sign-off pending.** Saad authorized implementation, then clarified: finish bug fixes with the original video and defer animation replacement decisions. No commit/push/deployment is authorized by this latest request. The lowercase release above remains live. RMS is now referred to as psametratech; do not infer changed account IDs from that name.
+
+### Implementation checkpoint — 2026-09-18
+- Runtime: removed desktop/touch exclusions; shared measured header offset; stable stage/scroll sizing; measured reveal height keeps all actions reachable in short/zoomed layouts; matching portrait poster/video framing. Original heroPhase boundaries, film and logo sequence retained.
+- Decoding: one in-flight seek with latest scroll target; feature-detected presented-frame confirmation before cover; foreground-only bounded load/seek recovery; offscreen/hidden-tab suspension; resize/page-show recovery; reduced-motion/save-data/video-error/no-script fallback.
+- Reproduced review defects fixed: preference changes moved following content and centered reveal text; restoring the content anchor now passes both regressions. Corrected svh fallback via a guarded custom property. Data-saving checks now tolerate connection objects without event-listener methods.
+- Verification: lint and production build (including TypeScript) passed; **26/26 tests, zero skips** on the final app build. Phone390/tablet768 touch emulation covers film/cover/rotate/split/reverse and reversal during a seek; landscape667×375 with doubled reveal text covers all three links and keyboard focus. Existing browser smoke suite passed including save-data/reduced-motion/error/no-script fallbacks and no browser errors (before the final narrowly scoped centered-reveal anchor fix, which is covered by the final26-test run).
+- Accessibility: final-build axe WCAG2/2.1 A/AA checks passed40/40 route/tab/viewport/theme scans. Browser smoke passed37/37 checks with no unexpected browser errors.
+- Visual checks in Codex Chromium at390×844 confirmed video first frame, grille,40° intermediate rotation,90° split and the readable reveal. These and Playwright touch contexts are PC browser emulation, not physical iOS/Android results. Source video SHA256 remains `1F2ABF4A90B31FA741C2DFB8419CA1904ACA1A5C3C5A02FBAF9586B16010B2A2`.
+- Changed files: Hero.tsx, globals.css, experience.test.ts, browser-check.mjs and this brief. No new package, alternative video, renderer or animation library. Local production preview uses port3001; verify/restart if needed. Temporary audit reports remain untouched/untracked.
+- Remaining: real iPhone/iPad/Android/Samsung tests, power-saving/VoiceOver/TalkBack checks and measured device seek/frame-time budgets. No universal smoothness,60fps or physical-device certification claim. No video replacement decision was made; source remains unchanged. Publication remains a separate explicit user request.
+
+**Goal:** Preserve the truck film → decoded grille frame → 90° logo rotation → upper/lower split on supported iPhone, iPad and Android phones/tablets, with native scrolling and an accessible fallback on every device.
+
+**Architecture:** Extend the existing HTML video, requestAnimationFrame and CSS implementation. Keep `heroPhase()` as the single timeline and retain its .70/.76/.86/1 boundaries. Feature-detect browser capabilities; do not use brand/UA detection or introduce an animation library, canvas frame sequence, global scroll lock or touchmove interception.
+
+**Stack/spec:** Existing Next16.3.5/React19.3.0/TypeScript/custom CSS. This section is the design and execution specification; keep it in this single handoff instead of creating a competing plan. Read repository AGENTS and relevant local Next docs at execution time. Execute one task at a time with source review and verification.
+
+### Scope and support contract
+- Original media stays byte-for-byte unchanged initially, including its 10-second duration, 24fps source and existing frequent keyframes. Desktop composition and phase order remain the reference. Lowercase psametra branding remains.
+- Target current and previous stable Safari/iOS/iPadOS, current Chrome and Samsung Internet on Android; sample Firefox Android and embedded browsers separately. Record actual tested OS/browser versions, hardware and date. A browser family or viewport size is not proof that every model passes.
+- Smooth scrubbing is the target on the representative real-device matrix below. Older/constrained devices, reduced motion, reported data-saving mode, failed decoding and restrictive browser policies receive a usable poster experience. There is no reliable universal low-power-mode detector; respond to actual media behavior.
+- A 24fps source is not a promise of 60 distinct video frames per second. Measure scroll responsiveness and seek latency separately from the CSS logo transition. Never claim universal 60fps or real-device coverage from desktop emulation.
+
+### Task 1 — capture baseline and reproduce mobile restrictions
+**Files:** `tests/experience.test.ts`, `scripts/browser-check.mjs`, existing `tests/hero.test.ts`; evidence under ignored `test-results/mobile-hero/`.
+- [ ] Capture desktop film/end-frame/rotate/split/reverse and phone/tablet fallback before edits. Confirm source hash against Media below.
+- [ ] Add a focused regression with a 390×844 touch context: expect scrub eligibility, advance to film/rotation/split and reverse; it must fail against today's desktop-only gate. Retain phase unit assertions and add 768×1024 touch coverage. Existing browser checks explicitly expecting universal mobile fallback must change; keep their reduced-motion/error fallback coverage.
+- [ ] Record portrait framing at first/middle/final frames; identify truck/grille cropping rather than assuming a smaller video fixes framing.
+
+### Task 2 — shared geometry and responsive reveal
+**Files:** `src/features/hero/Hero.tsx`, `src/styles/globals.css`, hero children in `src/app/page.tsx` only if required for fitting the reveal; geometry assertions in `tests/experience.test.ts`.
+- [ ] Replace the JS literal80 and CSS duplicated sticky offsets with the same measured header height exposed as `--hero-top`; current header is70px on narrow screens and80px on larger screens. Calculate scroll range from the rendered sticky height, guard nonpositive ranges, clamp progress0..1.
+- [ ] Use stable small-viewport sizing for the stage and mobile scroll distance, with a compatible fallback. Handle width/orientation/split-screen changes and safe-area padding; do not reload the media when the address bar moves. Cache geometry between meaningful resizes and read dimensions before writing styles.
+- [ ] Preserve centered truck/grille framing using the actual video dimensions and the same object-position used by the logo alignment calculation. Recompute the fitted logo for portrait and landscape; keep its complete rotated bounds inside the visible stage.
+- [ ] Fit the reveal heading and three actions to the available height without tiny text. On short landscape screens, keep overflowing reveal content in normal page flow after the transition; never trap it inside `overflow:hidden`. All three links remain reachable with touch and keyboard at 200% text zoom.
+- [ ] Verify 360×640,390×844,430×932,667×375,844×390,768×1024,820×1180,1024×768,1280×800 and desktop1440×900/2560×720: no horizontal overflow, clipped controls or jump when browser chrome changes.
+
+### Task 3 — touch eligibility, loading and resilient seeks
+**Files:** `src/features/hero/Hero.tsx`, matching enhancement CSS in `src/styles/globals.css`; browser regressions in `tests/experience.test.ts`/`scripts/browser-check.mjs`.
+- [ ] Remove width and fine-pointer eligibility restrictions in both JS and CSS together; keep reduced-motion/save-data checks and no-script normal flow. Enable only a supported media path, preserving a visible poster while loading.
+- [ ] Retain muted/playsInline. Try normal metadata/load/seek behavior first. If real Safari testing proves a user gesture is required, use an explicit accessible activation control or a one-time eligible pointer gesture; catch play rejection, pause immediately after priming and never let the film run independently of scroll.
+- [ ] Keep one seek in flight and only the latest desired target. After seek completion, service the latest target rather than enqueueing stale frames. Avoid React state updates per frame. Suspend work when offscreen or document-hidden; resume from current scroll position on visibility/pageshow, including back-forward cache restoration.
+- [ ] Register feature-detected `requestVideoFrameCallback` before a seek to confirm the grille frame has reached presentation before beginning the cover. Use the existing seeked/readyState route as the older-browser fallback. Frame callbacks must not become the only driver: paused videos may not produce another callback until a new frame is submitted. Cancel callbacks/listeners on disable/unmount.
+- [ ] Add bounded recovery: initial proposal8seconds without initial frame readiness and2seconds without seek progress while foreground/visible. These are tunable starting values, not platform guarantees. On failure clear media/animation state, release inert content and show the poster with all links in normal flow. Do not count background-tab time or a stationary scroll target as a stall. Preserve visual position on fallback so the visitor is not thrown past content.
+- [ ] Test fast flicks and reversal before a seek completes, cold loads, slow connections, video404, blocked playback, background/resume, rotation mid-transition, navigation away/back and preference changes. A fast fling may skip intermediate frames; do not hijack scrolling to force users through every frame.
+
+### Task 4 — profile first, optimize media only if necessary
+**Files:** existing hero code; an additional `public/media/freight-film-mobile.mp4` only if measurements justify it. Never overwrite the approved original.
+- [ ] On real devices record three slow forward/reverse passes and three brisk swipes after warm loading, plus one cold-load pass. Capture seek latency, presented-frame timestamps where available, long tasks, visible stalls and CSS transition pacing. Temporary diagnostics belong in ignored QA artifacts, not the public UI.
+- [ ] Initial warm-scroll targets: p95 seek completion within150ms and no repeatable frozen frame over250ms during continuous slow input; no animation-attributable main-thread task over50ms. Treat these as engineering gates to measure, not current results. Record CSS frame pacing against each display's refresh rate; investigate repeated missed frames.
+- [ ] First reduce unnecessary layout reads/seeks. If the same devices still fail, benchmark a separate smaller H.264 derivative (preserved24fps/timing, frequent keyframes, fast-start metadata, no audio) against the original. Inspect portrait detail and final-frame/logo matching. Adopt it only if it measurably improves decoding without unacceptable softness; a720p landscape source can look worse when heavily cropped to portrait.
+- [ ] Validate production byte-range responses, MIME type and cache behavior for the selected media. Do not add libraries, alternate renderers or speculative multiple quality tiers.
+
+### Task 5 — real-device and accessibility sign-off
+| Required device group | Browser and scenarios |
+| --- | --- |
+| Older/small supported iPhone and recent iPhone | Safari; portrait/landscape, normal and Low Power Mode, cold/warm load, address-bar collapse, reverse scroll |
+| iPad standard/mini and larger iPad | Safari; portrait/landscape, split view, touch and trackpad, rotation while seeking |
+| Midrange Android phone and recent higher-end phone | Chrome; slow network, power/data saving where available, fast flick and background/resume |
+| Samsung phone and Android tablet | Samsung Internet plus Chrome tablet; portrait/landscape, split screen and rapid resize |
+| Additional browser samples | Chrome on iPhone, Firefox Android, in-app browser: record verified behavior or fallback separately |
+
+- [ ] Use physical devices or an explicitly identified real-device service. If unavailable, report the missing rows and request device testing; never mark them passed from responsive Chrome or desktop WebKit. Do not purchase a testing service without authorization.
+- [ ] On every required group verify first frame, full film before cover,90° before split, both halves clear, reverse restoration, reachable reveal links, menu/theme interaction and no horizontal overflow. Check both themes, reduced motion, keyboard and VoiceOver/TalkBack on at least one device each. Poster mode must work without JavaScript and must not leave tall empty scroll space.
+- [ ] Reuse unit tests and existing browser/accessibility scripts. Run lint/typecheck/build, start that exact build, then run focused hero regressions and full existing smoke coverage. Browser-tool restrictions may require equivalent CUA checks; record exact executed checks, skips and limitations. Stop old production server before rebuilding `.next`.
+
+### Task 6 — review and release, after authorization
+- [ ] Summarize tested devices/versions, known fallbacks, performance evidence and desktop comparison in this brief. Review the exact diff, original media hash and no new dependencies.
+- [ ] Present the local result first. This plan-only request does not authorize another push/deploy. When Saad requests publication, commit/push the reviewed revision and deploy its clean Git export to the existing logistics project under psametratech's existing account IDs. Never deploy the separate corporate website or delete earlier releases.
+- [ ] Verify the production alias, video range loading and one physical phone/tablet against the deployed revision; preserve the previous deployment as the rollback target.
+
+### References and plan review
+- [WebKit inline video policies](https://webkit.org/blog/6784/new-video-policies-for-ios/): muted/inline playback rules; scroll itself is not a guaranteed activation gesture.
+- [MDN video frame callbacks](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement/requestVideoFrameCallback): feature detection, presented media timestamps and scheduling limits.
+- [MDN viewport units](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length): small/dynamic viewport behavior.
+- Self-review complete: covers touch eligibility, header offsets, viewport changes, portrait crop, short-screen content, decoding/failure/reverse behavior, motion preferences, measured performance, real-device coverage and release boundaries. No application changes made for this plan.
 
 ## Current state
 - **Initial release deployed and verified:** https://psametra-logistics.vercel.app/

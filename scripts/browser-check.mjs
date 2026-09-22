@@ -71,8 +71,9 @@ async function assertFocused(locator) {
   assert.equal(await locator.evaluate((element) => element === document.activeElement), true, 'Expected field or control to receive keyboard focus');
 }
 
-async function assertPosterFallback(page) {
-  await page.waitForFunction(() => document.querySelector('.hero')?.dataset.scrub === 'false');
+async function assertPosterFallback(page, noScript = false) {
+  if (noScript) assert.equal(await page.locator('.hero').getAttribute('data-scrub'), null);
+  else await page.waitForFunction(() => document.querySelector('.hero')?.dataset.scrub === 'false');
   const fallback = await page.locator('.hero').evaluate((hero) => {
     const film = hero.querySelector('.hero-video');
     const poster = hero.querySelector('.hero-poster');
@@ -123,6 +124,14 @@ try {
       const name = `${size.name}-${route === '/' ? 'home' : route.slice(1)}`;
       await check(name, page, async () => {
         await visit(page, route);
+        if (route === '/') {
+          await page.waitForFunction(() => document.querySelector('.hero')?.dataset.scrub === 'true');
+          await page.waitForFunction(() => {
+            const film = document.querySelector('.hero-video');
+            return film instanceof HTMLVideoElement && film.readyState >= 2 && film.videoWidth > 0;
+          });
+          assert.equal(await page.locator('.hero-sticky').evaluate(stage => getComputedStyle(stage).position), 'sticky', 'Supported desktop, tablet and phone contexts must enable the film');
+        }
         const title = await page.title();
         assert.match(title, /Psametra/i, 'Every route needs branded page metadata');
         assert.equal(await page.locator('h1').count(), 1, 'Every route needs one main heading');
@@ -287,8 +296,8 @@ try {
       return film instanceof HTMLVideoElement && film.readyState >= 1 && film.duration > 0 && !film.seeking;
     });
     const geometry = await page.locator('.hero').evaluate((hero) => {
-      const film = hero.querySelector('.hero-video');
-      return { start: window.scrollY + hero.getBoundingClientRect().top - parseFloat(getComputedStyle(hero.querySelector('.hero-sticky')).top), travel: hero.offsetHeight - film.clientHeight };
+      const stage = hero.querySelector('.hero-sticky');
+      return { start: window.scrollY + hero.getBoundingClientRect().top - parseFloat(getComputedStyle(stage).top), travel: hero.offsetHeight - stage.clientHeight };
     });
     assert.ok(geometry.travel > 0, 'Scrub must have a measurable scroll range');
     const scrollToProgress = async (progress) => page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), geometry.start + geometry.travel * progress);
@@ -451,14 +460,22 @@ try {
   captureErrors(reducedPage);
   await check('mobile-reduced-motion-poster', reducedPage, async () => {
     await visit(reducedPage, '/');
-    await reducedPage.waitForFunction(() => document.querySelector('.hero')?.dataset.scrub === 'false');
-    assert.equal(await reducedPage.locator('.hero-video').getAttribute('src'), null);
-    assert.equal(await reducedPage.locator('.hero-video source').count(), 0);
-    assert.equal(await reducedPage.locator('.hero-poster').evaluate((image) => image.complete && image.naturalWidth > 0), true);
-    await assertNoOverflow(reducedPage);
+    const fallback = await assertPosterFallback(reducedPage);
     await reducedPage.screenshot({ path: resolve(output, 'mobile-home-reduced-motion.png'), fullPage: true });
+    return fallback;
   });
   await reduced.close();
+  for (const noScript of [false, true]) {
+    const fallbackContext = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, reducedMotion: 'no-preference', javaScriptEnabled: !noScript });
+    const fallbackPage = await fallbackContext.newPage();
+    captureErrors(fallbackPage);
+    if (!noScript) await fallbackPage.addInitScript(() => Object.defineProperty(navigator, 'connection', { value: { saveData: true } }));
+    await check(`mobile-${noScript ? 'no-script' : 'save-data'}-poster`, fallbackPage, async () => {
+      await visit(fallbackPage, '/');
+      return assertPosterFallback(fallbackPage, noScript);
+    });
+    await fallbackContext.close();
+  }
   await check('no-browser-errors', null, async () => assert.deepEqual(report.browserErrors, [], 'Pages must not emit console errors or uncaught exceptions'));
 } catch (error) {
   report.checks.push({ name: 'browser-check-setup', passed: false, error: error.stack || String(error) });
