@@ -27,6 +27,120 @@ async function scrollHero(page: Page, progress: number) {
   await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), start + travel * progress);
 }
 
+type ControlledFilm = HTMLVideoElement & { testMedia: {
+  end: number; ready: number; time: number; seeking: boolean;
+  requests: number[]; callbacks: VideoFrameRequestCallback[];
+} };
+
+// Deterministic media scheduling checks, not network, decoder or physical-device benchmarks.
+async function controlledHero(page: Page, end = .75) {
+  await page.addInitScript({ content: `var __name = (value) => value; (${(({ end }: { end: number }) => {
+    Object.defineProperty(HTMLMediaElement.prototype, 'src', { configurable: true, set() {} });
+    HTMLMediaElement.prototype.load = function () {
+      const film = this as ControlledFilm;
+      if (film.testMedia) return;
+      const media: ControlledFilm['testMedia'] = { end, ready: 2, time: 0, seeking: false, requests: [], callbacks: [] };
+      film.testMedia = media;
+      Object.defineProperties(film, {
+        duration: { get: () => 10 }, readyState: { get: () => media.ready },
+        buffered: { get: () => ({ length: media.end > 0 ? 1 : 0, start: () => 0, end: () => media.end }) },
+        seeking: { get: () => media.seeking },
+        currentTime: { get: () => media.time, set: (value: number) => {
+          media.requests.push(value); media.time = value; media.seeking = true; media.ready = 1;
+          film.dispatchEvent(new Event('seeking'));
+        } },
+      });
+      film.requestVideoFrameCallback = callback => { media.callbacks.push(callback); return media.callbacks.length; };
+      // Keep canceled callbacks available to simulate a completion already queued by the browser.
+      film.cancelVideoFrameCallback = () => {};
+      queueMicrotask(() => { film.dispatchEvent(new Event('loadedmetadata')); film.dispatchEvent(new Event('loadeddata')); });
+    };
+  }).toString()})(${JSON.stringify({ end })});` });
+  await page.goto(base! + '/');
+  await page.waitForFunction(() => document.querySelector<HTMLElement>('.hero')?.dataset.scrub === 'true');
+}
+
+test('controlled cold hero waits for buffered targets, retries the latest target and offers accessible continuation', options, () => withPage(async page => {
+  await controlledHero(page);
+  await scrollHero(page, .56);
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  assert.deepEqual(await page.locator('video').evaluate((film: ControlledFilm) => film.testMedia.requests), [], 'Cold scroll must not seek outside buffered ranges');
+  await page.locator('.hero-loading').waitFor({ state: 'visible' });
+  const skip = page.getByRole('button', { name: 'Continue without animation' });
+  assert.equal(await skip.isEnabled(), true);
+  await skip.focus();
+  assert.equal(await skip.evaluate(element => document.activeElement === element), true);
+  await scrollHero(page, .35);
+  await page.locator('video').evaluate((film: ControlledFilm) => { film.testMedia.end = 6; film.dispatchEvent(new Event('progress')); });
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.requests.length === 1);
+  assert.ok(Math.abs(await page.locator('video').evaluate((film: ControlledFilm) => film.testMedia.requests[0]) - 5) < .05, 'Progress must retry the newest target, not the obsolete 8-second target');
+  await skip.click();
+  assert.equal(await page.locator('.hero').getAttribute('data-scrub'), 'false');
+  assert.equal(await page.locator('.hero-destination').evaluate((element: HTMLElement) => !element.inert && element === document.activeElement && element.getBoundingClientRect().top >= document.querySelector('.site-header')!.getBoundingClientRect().bottom - 1), true);
+}, { viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, reducedMotion: 'no-preference' }));
+
+test('controlled hero supersedes a pending seek on buffered reversal and ignores stale final frames', options, () => withPage(async page => {
+  await controlledHero(page, 10);
+  await scrollHero(page, .8);
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.requests.length === 1);
+  await scrollHero(page, .07);
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.requests.length === 2, null, { timeout: 1000 });
+  assert.ok(Math.abs(await page.locator('video').evaluate((film: ControlledFilm) => film.testMedia.requests[1]) - 1) < .05, 'Buffered reversal must not wait for the old seek');
+  await page.locator('video').evaluate((film: ControlledFilm) => { film.testMedia.seeking = false; film.testMedia.ready = 2; film.dispatchEvent(new Event('seeked')); });
+  await scrollHero(page, .8);
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.requests.length === 3);
+  await page.locator('video').evaluate((film: ControlledFilm) => {
+    film.testMedia.seeking = false; film.testMedia.ready = 2;
+    film.testMedia.callbacks[0](performance.now(), { mediaTime: 9.955 } as VideoFrameCallbackMetadata);
+    film.dispatchEvent(new Event('seeked'));
+  });
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  assert.equal(await page.locator('.hero').getAttribute('data-phase'), 'film', 'An obsolete final-frame callback must not open the cover');
+  await page.locator('video').evaluate((film: ControlledFilm) => film.testMedia.callbacks.at(-1)!(performance.now(), { mediaTime: 9.955 } as VideoFrameCallbackMetadata));
+  await page.waitForFunction(() => document.querySelector<HTMLElement>('.hero')?.dataset.phase === 'rotate');
+}, { reducedMotion: 'no-preference' }));
+
+test('controlled hero detects gradual reversals and clears loading after a recovered seek', options, () => withPage(async page => {
+  await controlledHero(page, 10);
+  await scrollHero(page, .56);
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.requests.length === 1);
+  for (const progress of [.559, .558, .557, .556]) {
+    await scrollHero(page, progress);
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  }
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.requests.length >= 2, null, { timeout: 1000 });
+  await page.locator('.hero-loading').waitFor({ state: 'visible' });
+  await page.locator('video').evaluate((film: ControlledFilm) => {
+    film.testMedia.seeking = false; film.testMedia.ready = 2;
+    film.dispatchEvent(new Event('seeked'));
+  });
+  await page.locator('.hero-loading').waitFor({ state: 'hidden', timeout: 1000 });
+}, { reducedMotion: 'no-preference' }));
+
+test('controlled hero uses the seek deadline after readiness drops and pauses deadlines while hidden or offscreen', options, () => withPage(async page => {
+  await controlledHero(page, 10);
+  await scrollHero(page, .35);
+  await page.waitForFunction(() => (document.querySelector('video') as ControlledFilm).testMedia.seeking);
+  await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, value: true }); document.dispatchEvent(new Event('visibilitychange')); });
+  await page.waitForTimeout(2300);
+  assert.equal(await page.locator('.hero').getAttribute('data-scrub'), 'true', 'Hidden time must not expire an active seek');
+  await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, value: false }); document.dispatchEvent(new Event('visibilitychange')); });
+  await page.waitForFunction(() => document.querySelector<HTMLElement>('.hero')?.dataset.scrub === 'false', null, { timeout: 3000 });
+
+  await page.reload();
+  await page.waitForFunction(() => document.querySelector<HTMLElement>('.hero')?.dataset.scrub === 'true');
+  await page.locator('video').evaluate((film: ControlledFilm) => { film.testMedia.end = .75; film.testMedia.ready = 0; });
+  await scrollHero(page, .56);
+  await page.locator('.hero-loading').waitFor({ state: 'visible' });
+  await page.evaluate(() => scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
+  await page.waitForTimeout(2300);
+  assert.equal(await page.locator('.hero').getAttribute('data-scrub'), 'true', 'Offscreen time must not expire initial loading');
+  await scrollHero(page, .56);
+  await page.waitForTimeout(2300);
+  assert.equal(await page.locator('.hero').getAttribute('data-scrub'), 'true', 'Initial data loading gets longer than the seek deadline');
+  await page.waitForFunction(() => document.querySelector<HTMLElement>('.hero')?.dataset.scrub === 'false', null, { timeout: 7000 });
+}, { reducedMotion: 'no-preference' }));
+
 test('cold hero buffers ahead before the first scroll', options, () => withPage(async page => {
   await page.goto(base! + '/');
   await page.waitForFunction(() => {
